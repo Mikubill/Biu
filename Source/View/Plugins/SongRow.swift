@@ -9,23 +9,23 @@
 import SwiftUI
 
 struct SongRow: View {
-    
+
     @EnvironmentObject var state: AppState
     @EnvironmentObject var playerstate: PlayerState
     @EnvironmentObject var details: CollectionDetails
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
+
     @State var selfpressed = false
     @State var pluspressed = false
-    
-    var index : Int
+
+    var index: Int
     var song: Song
     var withAddButton = true
     var withStartResponse = true
     var body: some View {
         HStack {
             VStack(alignment: .center) {
-                if self.state.NowSong?.id == song.id {
+                if self.state.nowPlaying?.id == song.id {
                     Image(systemName: "play")
                         .resizable()
                         .frame(width: 12, height: 14, alignment: .center)
@@ -39,7 +39,7 @@ struct SongRow: View {
             .padding(.leading, 10)
             .frame(width: 45, height: 15)
             VStack(alignment: .leading) {
-                if self.state.NowSong?.id == song.id {
+                if self.state.nowPlaying?.id == song.id {
                     Text(song.title)
                         .lineLimit(1)
                         .font(.system(size: 16))
@@ -51,7 +51,7 @@ struct SongRow: View {
                         .font(.system(size: 16))
                         .padding(.bottom, 3)
                 }
-                
+
                 Text("\(song.singer) - \(song.album)")
                     .lineLimit(1)
                     .foregroundColor(.gray)
@@ -72,7 +72,7 @@ struct SongRow: View {
                 }
                 .padding(.trailing, 15)
             }
-            
+
         }
         .frame(width: 400, alignment: .leading)
         .onTapGesture {
@@ -84,8 +84,7 @@ struct SongRow: View {
                 self.state.set(self.index)
                 //                self.playerstate.PlayListOneIsOn = false
             }
-            
+
         }
     }
 }
-

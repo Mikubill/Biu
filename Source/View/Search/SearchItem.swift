@@ -15,11 +15,11 @@ struct SearchItem: View {
     @State var pluspressed = false
     //    @EnvironmentObject var inita: initAtHome
     //    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
+
     var index: Int
     var body: some View {
         HStack {
-            
+
             VStack(alignment: .center) {
                 Text("\(self.index)")
                     .foregroundColor(.gray)

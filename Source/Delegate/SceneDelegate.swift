@@ -14,7 +14,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -26,15 +25,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let inita = initAtHome()
+            let inita = Initialization()
 //            let state = AppState()
 //            let worker = SearchWorker()
 //            let details = CollectionDetails()
 //            let playerstate = PlayerState()
             let loginhelper = LoginHelper()
             loginhelper.readCache()
-            loginhelper.UpdateSelfIntro()
-            inita.GetJsonData()
+            loginhelper.updateSelfIntro()
+            inita.getJsonData()
             debugPrint(Constants.httpVia)
             window.rootViewController = UIHostingController(rootView: AppRootView(loginhelper: loginhelper)
                 .environmentObject(inita)
@@ -43,15 +42,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 .environmentObject(AppState())
                 .environmentObject(CollectionDetails())
                 .environmentObject(PlayerState())
-                
+
             )
             // Init Workers
             self.window = window
             window.makeKeyAndVisible()
         }
     }
-    
-    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -81,6 +78,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
 }
-

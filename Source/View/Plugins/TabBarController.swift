@@ -24,18 +24,18 @@ struct TabBarController: UIViewControllerRepresentable {
     func updateUIViewController(_ tabBarController: UITabBarController, context: Context) {
         tabBarController.selectedIndex = selectedIndex
     }
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-    
+
     class Coordinator: NSObject, UITabBarControllerDelegate {
         var parent: TabBarController
 
         init(_ tabBarController: TabBarController) {
             self.parent = tabBarController
         }
-        
+
         func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
             parent.selectedIndex = tabBarController.selectedIndex
         }

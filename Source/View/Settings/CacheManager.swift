@@ -9,38 +9,37 @@
 import SwiftUI
 
 struct CacheManager: View {
-    
+
     @EnvironmentObject var state: AppState
-    
+
     @State private var showGreetingc = true
     @State private var showGreetingd = true
-    
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("缓存管理设置")
                 .font(Font.headline)
-            
+
             Divider()
-            
+
             Toggle(isOn: $showGreetingc) {
                 Text("缓存自动管理")
             }
             .padding()
             .disabled(true)
-            
+
             Toggle(isOn: $showGreetingd) {
                 Text("边听边存")
             }
             .padding()
             .disabled(self.showGreetingc)
-            
-            Toggle(isOn: $state.CacheRadio) {
+
+            Toggle(isOn: $state.radioCachePolicy) {
                 Text("缓存电台音乐")
             }
             .padding()
             .disabled(self.showGreetingc)
-            
+
         }
         .padding()
     }

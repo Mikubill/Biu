@@ -11,13 +11,13 @@ import SwiftUI
 import KingfisherSwiftUI
 
 struct MiniPlayerView: View {
-    
+
     @EnvironmentObject var state: AppState
-    
+
     var body: some View {
         HStack {
             VStack {
-                KFImage(URL(string: "\(Router.Biu_BaseAPI_Cover)/\(self.state.NowSong?.id ?? "0")")!)
+                KFImage(URL(string: "\(Router.biuBaseAPICover)/\(self.state.nowPlaying?.id ?? "0")")!)
                     .resizable()
 //                    .cornerRadius(5)
                     .frame(width: 50, height: 50, alignment: .center)
@@ -25,15 +25,15 @@ struct MiniPlayerView: View {
                     .clipShape(Circle())
             }
             VStack {
-                if !self.state.FMisLoading {
+                if !self.state.radioIsLoading {
                     HStack {
-                        Text(self.state.NowSong?.title ?? "Nothing")
+                        Text(self.state.nowPlaying?.title ?? "Nothing")
                             .lineLimit(1)
                             .font(.system(size: 16))
                         Spacer()
                     }
                     HStack {
-                        Text(self.state.NowSong?.singer ?? "Nothing")
+                        Text(self.state.nowPlaying?.singer ?? "Nothing")
                             .lineLimit(1)
                             .font(.system(size: 12))
                             .foregroundColor(.gray)
@@ -51,7 +51,7 @@ struct MiniPlayerView: View {
                 HStack {
                     if !self.state.isLoading {
                         Button(action: {
-                            self.state.Playingtoggle()
+                            self.state.playingtoggle()
                         }) {
                             Image(systemName: self.state.isPlaying ? "pause" : "play")
                                 .resizable()
@@ -67,11 +67,11 @@ struct MiniPlayerView: View {
                         ActivityIndicator(style: .large)
                             .frame(width: 25, height: 25)
                             .padding(Edge.Set.trailing, 20)
-                        
+
                     }
                     Button(action: {
                         self.state.push()
-                        
+
                     }) {
                         Image(systemName: "forward.end")
                             .resizable()
@@ -89,4 +89,3 @@ struct MiniPlayerView: View {
         .padding(Edge.Set.bottom, 10)
     }
 }
-

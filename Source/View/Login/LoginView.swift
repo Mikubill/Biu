@@ -14,7 +14,7 @@ struct LoginView: View {
     @EnvironmentObject var loginhelper: LoginHelper
     var strengths = ["汉子", "妹子", "秀吉"]
     @State private var selectedStrength = 0
-    
+
     var body: some View {
         VStack {
             Image(uiImage: UIImage(named: "biu_trans")!)
@@ -28,68 +28,56 @@ struct LoginView: View {
                 .padding(Edge.Set.top, 40)
                 .padding(Edge.Set.bottom, 25)
                 .padding(10)
-            
+
             VStack {
-                
+
                 TextField("Email", text: $loginhelper.username)
                     .textContentType(.emailAddress)
                     .padding()
                     .overlay(
                         Rectangle()
                             .frame(height: 1.5, alignment: .bottom)
-                            .foregroundColor(Color.gray)
-                        
-                        , alignment: .bottom)
+                            .foregroundColor(Color.gray), alignment: .bottom)
                     .padding(10)
-                
-                
+
                 if self.showreg {
                         SecureField("Password", text: $loginhelper.password)
                             .padding()
                             .overlay(
                                 Rectangle()
                                     .frame(height: 1.5, alignment: .bottom)
-                                    .foregroundColor(Color.gray)
-                                
-                                , alignment: .bottom)
+                                    .foregroundColor(Color.gray), alignment: .bottom)
                             .padding(10)
-                        
+
                         SecureField("Repeat Password", text: $loginhelper.password2)
                             .padding()
                             .overlay(
                                 Rectangle()
                                     .frame(height: 1.5, alignment: .bottom)
-                                    .foregroundColor(Color.gray)
-                                
-                                , alignment: .bottom)
+                                    .foregroundColor(Color.gray), alignment: .bottom)
                             .padding(10)
-                        
+
                         TextField("Name", text: $loginhelper.name)
                             .padding()
                             .overlay(
                                 Rectangle()
                                     .frame(height: 1.5, alignment: .bottom)
-                                    .foregroundColor(Color.gray)
-                                
-                                , alignment: .bottom)
+                                    .foregroundColor(Color.gray), alignment: .bottom)
                             .padding(10)
                     .padding(Edge.Set.bottom, 20)
                 } else {
-                        SecureField("Password", text: $loginhelper.password, onCommit: Commit)
+                        SecureField("Password", text: $loginhelper.password, onCommit: commit)
                             .padding()
                             .overlay(
                                 Rectangle()
                                     .frame(height: 1.0, alignment: .bottom)
-                                    .foregroundColor(Color.gray)
-                                
-                                , alignment: .bottom)
+                                    .foregroundColor(Color.gray), alignment: .bottom)
                             .padding(10)
                             .padding(Edge.Set.bottom, 40)
                 }
-                
-                
+
                 Button(action: {
-                    self.Commit()
+                    self.commit()
                 }) {
                     if self.loginhelper.answer == "正在请求数据..." {
                         ActivityIndicator(style: .large)
@@ -104,13 +92,12 @@ struct LoginView: View {
                     }
                 }
                 .disabled(self.loginhelper.signing)
-                
+
                 Spacer()
                     .frame(width: 15, alignment: .center)
-                
-                
+
                 Button(action: {
-                    
+
                     withAnimation(.easeInOut(duration: 0.5)) { self.showreg.toggle() } }) {
                     if self.showreg {
                         Text("Return to Login")
@@ -119,11 +106,11 @@ struct LoginView: View {
                     }
                 }
                 .disabled(self.loginhelper.signing)
-                
+
                 Text(self.loginhelper.answer)
                     .font(.headline)
                     .padding(25)
-                
+
             }
         }
         .padding(20)
@@ -138,8 +125,8 @@ struct LoginView: View {
         //                .environmentObject(self.loginhelper)
         //        }
     }
-    
-    func Commit() {
+
+    func commit() {
         UIApplication.shared.endEditing()
         self.loginhelper.answer = "正在请求数据..."
         if self.showreg {

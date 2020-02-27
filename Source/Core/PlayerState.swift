@@ -10,10 +10,10 @@ import Foundation
 
 final class PlayerState: ObservableObject {
 
-    @Published var PlayerIsOn = false
-    @Published var PlayerIsOnSp = false
-    @Published var PlayerIsOnIns = false
-    @Published var PlayListOneIsOn = false
-    @Published var CollectionOneIsOn = false
-    
+    @Published var playerIsOn = false
+    @Published var playerIsOnSp = false
+    @Published var playerIsOnIns = false
+    @Published var playListOneIsOn = false
+    @Published var collectionOneIsOn = false
+
 }

@@ -14,5 +14,5 @@ public struct Song {
     public var singer: String = ""
     public var album: String = ""
     public var like: Bool = false
-    public var lyric: [LyricItem]? = nil
+    public var lyric: [LyricItem]?
 }

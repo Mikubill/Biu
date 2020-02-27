@@ -11,7 +11,7 @@ import SwiftUI
 struct UIKitTabView: View {
     var viewControllers: [UIHostingController<AnyView>]
     @State var selectedIndex: Int = 0
-    
+
     init(_ views: [Tab]) {
         self.viewControllers = views.map {
             let host = UIHostingController(rootView: $0.view)
@@ -19,21 +19,21 @@ struct UIKitTabView: View {
             return host
         }
     }
-    
+
     var body: some View {
         TabBarController(controllers: viewControllers, selectedIndex: $selectedIndex)
             .edgesIgnoringSafeArea(.bottom)
     }
-    
+
     struct Tab {
         var view: AnyView
         var barItem: UITabBarItem
-        
+
         init<V: View>(view: V, barItem: UITabBarItem) {
             self.view = AnyView(view)
             self.barItem = barItem
         }
-        
+
         // convenience
         init<V: View>(view: V, title: String?, image: String, selectedImage: String? = nil) {
             let selectedImage = selectedImage != nil ? UIImage(systemName: selectedImage!, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .regular )) : nil

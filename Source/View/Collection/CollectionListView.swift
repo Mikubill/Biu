@@ -11,29 +11,29 @@ import SwiftUI
 import KingfisherSwiftUI
 
 struct CollectionListView: View {
-    
+
     @EnvironmentObject var state: AppState
     @EnvironmentObject var details: CollectionDetails
     @EnvironmentObject var playerstate: PlayerState
     @State var showlimit = 1
-    
-    let Page = 100
-    
-    var i : Int
-    var title : [[String]]
+
+    let indicesPerPage = 100
+
+    var collectionIndex: Int
+    var title: [[String]]
     var body: some View {
         VStack {
-            ScrollView(.vertical , showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    Button(action: { self.state.replaceMyCollection(self.i) }) {
+                    Button(action: { self.state.replaceMyCollection(self.collectionIndex) }) {
                         Text("播放全部")
                             .font(Font.headline)
                     }
                     Divider()
                 }
                 .padding()
-                if self.details.Playlist.count != 0 {
-                    ForEach( 0...Int(self.details.Playlist.count / self.Page), id:\.self ) { index in
+                if self.details.defaultPlaylist.count != 0 {
+                    ForEach( 0...Int(self.details.defaultPlaylist.count / self.indicesPerPage), id: \.self ) { index in
                         self.generageview(index)
                     }
                 } else {
@@ -46,31 +46,31 @@ struct CollectionListView: View {
                 }
                 BottomPadding()
             }
-            .sheet(isPresented: $playerstate.PlayerIsOnIns) {
+            .sheet(isPresented: $playerstate.playerIsOnIns) {
                 PlayerView()
                 .environmentObject(self.state)
                 .environmentObject(self.playerstate)
             }
         }
-        .navigationBarTitle(Text(Variable.my_music_list_key[self.i].prefix(40)), displayMode: .inline)
-        .onAppear(){
-            self.details.Playlist = [Song]()
-            self.details.getdetails(self.title[self.i], true)
+        .navigationBarTitle(Text(Variable.myPlaylistKey[self.collectionIndex].prefix(40)), displayMode: .inline)
+        .onAppear {
+            self.details.defaultPlaylist = [Song]()
+            self.details.getdetails(self.title[self.collectionIndex], true)
         }
     }
-    
+
     func generageview(_ index: Int) -> CollectionListItem? {
         //debugPrint(index, self.showlimit)
-        if (index < self.showlimit) {
+        if index < self.showlimit {
             return CollectionListItem(index: index, last: false, limit: $showlimit)
         }
-        if (index == self.showlimit) {
-            let x = self.details.Playlist.count % self.Page
-            let y = Int(self.details.Playlist.count / self.Page)
-            if index < y - 1 {
+        if index == self.showlimit {
+            let indicesExceeded = self.details.defaultPlaylist.count % self.indicesPerPage
+            let indicesPerPage = Int(self.details.defaultPlaylist.count / self.indicesPerPage)
+            if index < indicesPerPage - 1 {
                 return CollectionListItem(index: index, last: true, limit: $showlimit)
             }
-            if x > 0, index == y - 1 {
+            if indicesExceeded > 0, index == indicesPerPage - 1 {
                 return CollectionListItem(index: index, last: true, limit: $showlimit)
             }
             return CollectionListItem(index: index, last: false, limit: $showlimit)

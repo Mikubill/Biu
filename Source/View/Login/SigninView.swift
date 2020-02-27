@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct SigninView: View {
-    
+
     @EnvironmentObject var loginhelper: LoginHelper
     @State var sec = false
-    
+
     var body: some View {
-        
+
         VStack {
 
             Text("Biu iOS Client")
@@ -22,7 +22,6 @@ struct SigninView: View {
                 .padding(Edge.Set.top, 20)
             .padding(Edge.Set.bottom, 50)
 
-            
             if !sec {
                 Text("USERNAME")
                     .font(.headline)
@@ -35,20 +34,19 @@ struct SigninView: View {
                             .stroke(Color.gray, lineWidth: 3)
                 )
                 .padding(20)
-                HStack{
+                HStack {
                     Button(action: {
                         self.sec = true
-                    })
-                    {Text("Go")
+                    }) {Text("Go")
                         .font(.title)
                     }.padding(20)
                 }
             }
-            
+
             if sec {
                 Text("PASSWORD")
                     .font(.headline)
-                
+
                 SecureField("PASSWORD", text: $loginhelper.password)
                     .padding()
                     .overlay(
@@ -61,23 +59,21 @@ struct SigninView: View {
                 }
                 .disabled(self.loginhelper.answer == "正在请求数据...")
                 .padding(10)
-                HStack{
+                HStack {
                     Button(action: {
                         self.loginhelper.answer = "正在请求数据..."
                         self.loginhelper.login()
-                    })
-                    {Text("Login")
+                    }) {Text("Login")
                         .font(.title)
                     }.padding(20)
                         .disabled(!self.loginhelper.webapi)
-                    
+
                     Button(action: {
                         self.loginhelper.answer = "..."
                         self.loginhelper.username = ""
                         self.loginhelper.password = ""
                         self.sec = false
-                    })
-                    {Text("Return")
+                    }) {Text("Return")
                         .font(.title)
                     }.padding(20)
                 }
@@ -85,15 +81,15 @@ struct SigninView: View {
                     .font(.headline)
                 .padding(10)
             }
-            
+
         }
-        .frame(height:600, alignment: .top)
+        .frame(height: 600, alignment: .top)
         .padding(Edge.Set.leading, 20)
         .padding(Edge.Set.trailing, 40)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
-        
+
     }
-    
+
 }

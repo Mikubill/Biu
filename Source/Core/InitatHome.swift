@@ -13,8 +13,8 @@ import SwiftyJSON
 import Alamofire
 import Kingfisher
 
-final class initAtHome: ObservableObject {
-    
+final class Initialization: ObservableObject {
+
     func totalSize() throws -> UInt64 {
         var size: UInt64 = 0
         let filemanager = FileManager()
@@ -29,25 +29,25 @@ final class initAtHome: ObservableObject {
         }
         return size
     }
-    
-    func UpdateCacheSize() {
-        
+
+    func updateCacheSize() {
+
         ImageCache.default.calculateDiskStorageSize { result in
             switch result {
             case .success(let size):
-                self.KFCache = "Disk Image Cache Size: \(String(format: "%.2f", (Double(size) / 1024 / 1024))) MB"
+                self.kfCache = "Disk Image Cache Size: \(String(format: "%.2f", (Double(size) / 1024 / 1024))) MB"
             case .failure(let error):
                 print(error)
             }
         }
-        
+
         if let size = try? self.totalSize() {
-            self.CPCache = "Disk Songs Cache Size: \(String(format: "%.2f", (Double(size) / 1024 / 1024))) MB"
+            self.cpCache = "Disk Songs Cache Size: \(String(format: "%.2f", (Double(size) / 1024 / 1024))) MB"
         }
-        self.IsChanged.toggle()
+        self.isChanged.toggle()
     }
-    
-    func DataHandler(_ response: AFDataResponse<Any>) -> ([String], [Any]) {
+
+    func dataHandler(_ response: AFDataResponse<Any>) -> ([String], [Any]) {
         guard let object = response.data else {
             return ([], [])
         }
@@ -55,28 +55,36 @@ final class initAtHome: ObservableObject {
         guard json["status"] == true else {
             return ([], [])
         }
-        self.IsChanged.toggle()
+        self.isChanged.toggle()
         return pairs(json)
     }
-    
-    func GetJsonData() {
-        
-        self.IsChanged.toggle()
-        
+
+    func getJsonData() {
+
+        self.isChanged.toggle()
+
         // MARK: Get My List
-        Constants.S.request(Router.GetMyList).validate().responseJSON() { response in (Variable.my_music_list_key, Variable.my_music_list_title) = self.DataHandler(response) as! ([String], [[String]]) }
-        
+        Constants.session.request(Router.getMyList).validate().responseJSON { response in
+            let data = self.dataHandler(response) as? ([String], [[String]])
+            assert(data != nil)
+            (Variable.myPlaylistKey, Variable.myPlaylistTitle) = data! }
+
         // MARK: Get Newest
-        Constants.S.request(Router.GetNewList).validate().responseJSON() { response in (Variable
-            .new_music_list_key, Variable.new_music_list_title) = self.DataHandler(response) as! ([String], [String]) }
-        
+        Constants.session.request(Router.getNewList).validate().responseJSON { response in
+            let data = self.dataHandler(response) as? ([String], [String])
+            assert(data != nil)
+            (Variable.newMusicPlaylistKey, Variable.newMusicPlaylistTitle) = data! }
+
         // MARK: Get Hottest
-        Constants.S.request(Router.GetHotList).validate().responseJSON() { response in (Variable.hot_music_list_key, Variable.hot_music_list_title) = self.DataHandler(response) as! ([String], [String]) }
-        
-        UpdateCacheSize()
-        
+        Constants.session.request(Router.getHotList).validate().responseJSON { response in
+            let data = self.dataHandler(response) as? ([String], [String])
+            assert(data != nil)
+            (Variable.hotMusicPlayListKey, Variable.hotMusicPlaylistTitle) = data! }
+
+        updateCacheSize()
+
     }
-    @Published var IsChanged = false
-    @Published var KFCache = ""
-    @Published var CPCache = ""
+    @Published var isChanged = false
+    @Published var kfCache = ""
+    @Published var cpCache = ""
 }

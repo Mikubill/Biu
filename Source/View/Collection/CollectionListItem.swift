@@ -14,16 +14,15 @@ struct CollectionListItem: View {
     @EnvironmentObject var details: CollectionDetails
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State var vpressed = false
-    
-    
+
     var index: Int
     var last: Bool
     @Binding var limit: Int
-    
+
     var body: some View {
         VStack {
-            ForEach(0...calcd(), id: \.self) { i in
-                SongRow(index: self.index * 100 + i + 1, song: self.song(i))
+            ForEach(0...calcd(), id: \.self) { index in
+                SongRow(index: self.index * 100 + index + 1, song: self.song(index))
             }
             VStack {
                 if self.last {
@@ -51,19 +50,18 @@ struct CollectionListItem: View {
             .padding(.top, 5)
         }
     }
-    
+
     func calcd() -> Int {
-        let f = self.details.Playlist.count - self.index * 100
-        if f > 100 {
+        let relativeIndex = self.details.defaultPlaylist.count - self.index * 100
+        if relativeIndex > 100 {
             return 99
-        }
-        else {
-            return f - 1
+        } else {
+            return relativeIndex - 1
         }
     }
-    
-    func song(_ i:Int) -> Song {
-        let index = self.index * 100 + i
-        return self.details.Playlist[index]
+
+    func song(_ index: Int) -> Song {
+        let index = self.index * 100 + index
+        return self.details.defaultPlaylist[index]
     }
 }

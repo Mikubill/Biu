@@ -10,30 +10,28 @@ import SwiftUI
 
 import KingfisherSwiftUI
 
-
 struct SearchView: View {
-    
+
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var worker: SearchWorker
     @EnvironmentObject var state: AppState
     @EnvironmentObject var playerstate: PlayerState
-    @State var searchText:String = ""
+    @State var searchText: String = ""
     @State var showCancelButton: Bool = false
     @State var hideBarTitle: Bool = false
     @State private var showModel = false
-    
+
     var body: some View {
         NavigationView {
             VStack {
-                
+
                 HStack {
                     SearchBar(text: $searchText, onSearchButtonClicked: fetch, onCancelButtonClicked: finish)
                 }
                 .padding(.leading, 10)
                 .padding(.trailing, 10)
-                
-                
-                ScrollView(.vertical , showsIndicators: false) {
+
+                ScrollView(.vertical, showsIndicators: false) {
                     if self.worker.start {
                         HStack {
                             ActivityIndicator(style: .large)
@@ -58,18 +56,17 @@ struct SearchView: View {
                             }
                         }
                     }
-                    
+
                 }
                 .navigationBarTitle(Text("Search"))
                 .resignKeyboardOnDragGesture()
-                
+
                 BottomPadding()
             }
             .navigationBarHidden(self.hideBarTitle)
             .overlay(
                 BlurView(style: self.colorScheme == .light ? .light : .dark)
-                    .frame(width: 450, height: 70)
-                ,alignment: .bottom)
+                    .frame(width: 450, height: 70), alignment: .bottom)
                 .overlay(
                     MiniPlayerView()
                         .onTapGesture {
@@ -79,28 +76,27 @@ struct SearchView: View {
                         PlayerView()
                             .environmentObject(self.state)
                             .environmentObject(self.playerstate)
-                    }
-                    ,alignment: .bottom
+                    }, alignment: .bottom
             )
         }
     }
-    
+
     private func finish() {
         UIApplication.shared.endEditing(true)
         self.hideBarTitle = false
         self.worker.clearSongs()
     }
-    
+
     private func fetch() {
         UIApplication.shared.endEditing(true)
         self.hideBarTitle = true
         self.worker.search(query: searchText)
     }
-    
+
 }
 
 struct ResignKeyboardOnDragGesture: ViewModifier {
-    var gesture = DragGesture().onChanged{_ in
+    var gesture = DragGesture().onChanged {_ in
         UIApplication.shared.endEditing(true)
     }
     func body(content: Content) -> some View {

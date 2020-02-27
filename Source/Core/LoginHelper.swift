@@ -19,28 +19,28 @@ final class LoginHelper: ObservableObject {
     @Published var password = ""
     @Published var password2 = ""
     @Published var name = ""
-    @Published var qq = ""
+    @Published var qqNumber = ""
     @Published var answer = "..."
     @Published var signing = false
     @Published var webapi = false
     @Published private(set) var token = ""
-    
+
     func login() {
         self.signing  = true
-        Constants.S.request(Router.Login(username: self.username, password: self.password))
-            .validate().responseJSON() { response in self.ticketHelper(response) }
+        Constants.session.request(Router.login(username: self.username, password: self.password))
+            .validate().responseJSON { response in self.ticketHelper(response) }
     }
-    
+
     func signup() {
         self.signing  = true
         if self.password != self.password2 {
             self.answer = "两次输入的密码不正确。"
             return
         }
-        Constants.S.request(Router.Signup(username: self.username, password: self.password, name: self.name))
-            .validate().responseJSON() { response in self.signHelper(response) }
+        Constants.session.request(Router.signup(username: self.username, password: self.password, name: self.name))
+            .validate().responseJSON { response in self.signHelper(response) }
     }
-    
+
     func signHelper(_ response: AFDataResponse<Any>) {
         guard let object = response.data else {
             self.signing = false
@@ -54,11 +54,11 @@ final class LoginHelper: ObservableObject {
             return
         }
         self.answer = "注册成功。正在登录..."
-        Constants.S.request(Router.Login(username: self.username, password: self.password))
-        .validate().responseJSON() { response in self.ticketHelper(response) }
+        Constants.session.request(Router.login(username: self.username, password: self.password))
+        .validate().responseJSON { response in self.ticketHelper(response) }
     }
-    
-    func ticketHelper(_ response: AFDataResponse<Any>)  {
+
+    func ticketHelper(_ response: AFDataResponse<Any>) {
         self.signing = false
 //        print(response.debugDescription)
         guard let object = response.data else {
@@ -75,11 +75,11 @@ final class LoginHelper: ObservableObject {
             try? Variable.ticketstorage?.setObject(Data(ticket.utf8), forKey: "token", expiry: .never)
         }
         self.readCache()
-        self.UpdateSelfIntro()
+        self.updateSelfIntro()
     }
-    
-    func UpdateSelfIntro() {
-        Constants.S.request(Router.UpdateSelfInfo).validate().responseJSON() { response in
+
+    func updateSelfIntro() {
+        Constants.session.request(Router.updateSelfInfo).validate().responseJSON { response in
 //            debugPrint(response.debugDescription)
             guard let object = response.data else {
                 return
@@ -96,25 +96,29 @@ final class LoginHelper: ObservableObject {
                 switch key {
                 case "email":
                     Variable.email = subJson.string ?? ""
-                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8), forKey: "email", expiry: .never)
+                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8),
+                                                           forKey: "email", expiry: .never)
                 case "uid":
                     Variable.uid = subJson.string ?? ""
-                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8), forKey: "uid", expiry: .never)
+                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8),
+                                                           forKey: "uid", expiry: .never)
                 case "name":
                     Variable.name = subJson.string ?? ""
-                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8), forKey: "name", expiry: .never)
+                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8),
+                                                           forKey: "name", expiry: .never)
                 case "like_collect":
                     Variable.likecollect = subJson.string ?? ""
-                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8), forKey: "likecollect", expiry: .never)
+                    try? Variable.ticketstorage?.setObject(Data(subJson.string!.utf8),
+                                                           forKey: "likecollect", expiry: .never)
                 default: break
                 }
             }
         }
     }
-    
+
     func readCache() {
         if let ticket = try? Variable.ticketstorage?.object(forKey: "token") {
-            if String(data: ticket, encoding: .utf8) != nil  {
+            if String(data: ticket, encoding: .utf8) != nil {
 //                debugPrint(String(data: ticket, encoding: .utf8) as Any)
                 self.answer = "登录成功"
                 self.token = "ok"
@@ -127,7 +131,7 @@ final class LoginHelper: ObservableObject {
             self.token = ""
         }
     }
-    
+
     func logout() {
         try? Variable.ticketstorage?.removeAll()
         self.token = ""

@@ -12,39 +12,39 @@ import KingfisherSwiftUI
 
 struct HomeViewStack: View {
     @EnvironmentObject var state: AppState
-    @EnvironmentObject var inita: initAtHome
+    @EnvironmentObject var inita: Initialization
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
+
     var index: Int
     var title: [String]
     var key: [String]
-    
+
     var body: some View {
         VStack {
-            ForEach(0..<2) { i in
+            ForEach(0..<2) { index in
                 VStack {
                     if self.title != [] {
                         Button(action: {
                             debugPrint("Tapped Hot_Stack_\(self.index)")
                             self.state.isLoading = true
-                            self.state.start(for: Song(id: self.title[self.index * 2 + i], title: self.key[self.index * 2 + i], singer: "", album: ""))
-                        }){
-                            KFImage(URL(string: "\(Router.Biu_BaseAPI_Cover)/\(self.title[self.index * 2 + i])")!)
+                            self.state.start(for: Song(id: self.title[self.index * 2 + index], title: self.key[self.index * 2 + index], singer: "", album: ""))
+                        }) {
+                            KFImage(URL(string: "\(Router.biuBaseAPICover)/\(self.title[self.index * 2 + index])")!)
                                 .renderingMode(.original)
                                 .resizable()
                                 .frame(width: 100, height: 100, alignment: .center)
                                 .cornerRadius(5)
                                 .shadow(radius: 5)
                                 .scaledToFit()
-                            
-                            Text(String(self.key[self.index * 2 + i]))
+
+                            Text(String(self.key[self.index * 2 + index]))
                                 .font(Font.subheadline)
                                 .lineLimit(1)
                                 .foregroundColor(self.colorScheme == .light ? .black : .white)
                         }
                         .buttonStyle(PlainButtonStyle())
                     } else {
-                        // MARK - Check Local Cache
+                        // MARK: - Check Local Cache
                         Image(uiImage: UIColor.gray.image() )
                             .resizable()
                             .shadow(radius: 5)
@@ -59,6 +59,6 @@ struct HomeViewStack: View {
                 .frame(width: 110, height: 140)
             }
         }
-        
+
     }
 }

@@ -11,160 +11,160 @@ import Alamofire
 import UIKit
 
 enum Router: URLRequestConvertible {
-    case Login(username: String, password: String)
-    case Signup(username: String, password: String, name: String)
-    case GetSongTickets(Songid: String)
-    case GetSongsDetails(Songid: [String])
-    case GetSongDetails(Songid: String)
-    case GetLrc(Songid: String)
-    case AddLike(Songid: String)
-    case DelLike(Songid: String)
-    case Search(Query: String)
-    case GetFMData(Category: Int)
-    case GetMyList
-    case GetNewList
-    case GetHotList
-    case UpdateSelfInfo
-    case GetLike
-    
-    static let Biu_BaseAPI_Android = getConfig(withName: "Android", cat: "Basic")
-    static let Biu_BaseAPI_PWA = getConfig(withName: "PWA", cat: "Basic")
-    static let Biu_BaseAPI_Web = getConfig(withName: "Web", cat: "Basic")
-    static let Biu_BaseAPI_Avatar = getConfig(withName: "Avatar", cat: "App")
-    static let Biu_BaseAPI_Cover = getConfig(withName: "Cover", cat: "App")
-    static let Biu_BaseAPI_FMCover = getConfig(withName: "FMCover", cat: "App")
-    static let Biu_BaseAPI_Signup = getConfig(withName: "Signup", cat: "App")
-    static let Biu_BaseAPI_FM = getConfig(withName: "FM", cat: "App")
-    
+    case login(username: String, password: String)
+    case signup(username: String, password: String, name: String)
+    case getSongTickets(songid: String)
+    case getSongsDetails(songid: [String])
+    case getSongDetails(songid: String)
+    case getLrc(songid: String)
+    case addLike(songid: String)
+    case delLike(songid: String)
+    case search(query: String)
+    case getFMData(category: Int)
+    case getMyList
+    case getNewList
+    case getHotList
+    case updateSelfInfo
+    case getLike
+
+    static let biuBaseAPIAndroid = getConfig(withName: "Android", cat: "Basic")
+    static let biuBaseAPIPWA = getConfig(withName: "PWA", cat: "Basic")
+    static let biuBaseAPIWeb = getConfig(withName: "Web", cat: "Basic")
+    static let biuBaseAPIAvatar = getConfig(withName: "Avatar", cat: "App")
+    static let biuBaseAPICover = getConfig(withName: "Cover", cat: "App")
+    static let biuBaseAPIFMCover = getConfig(withName: "FMCover", cat: "App")
+    static let biuBaseAPISignup = getConfig(withName: "Signup", cat: "App")
+    static let biuBaseAPIFM = getConfig(withName: "FM", cat: "App")
+
     static let PublicHeaders: [String: String] = [
         "Accept": "application/json, text/plain, */*",
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "Biu/\(Constants.build ?? "Undefined") (\(UIDevice.current.model); \(UIDevice.current.systemName) \(UIDevice.current.systemVersion))",
+        "User-Agent": "Biu/\(Constants.build ?? "Undefined") (\(UIDevice.current.model); \(UIDevice.current.systemName) \(UIDevice.current.systemVersion))"
     ]
-    
+
     var headers: [String: String] {
         switch self {
-        case .Login(_):
-            return ["Referer": Router.Biu_BaseAPI_PWA]
-        case .Signup(_, _, _):
-            return ["Referer": Router.Biu_BaseAPI_Signup]
-        case .GetFMData(_):
-            return ["Referer": Router.Biu_BaseAPI_FM]
-        case .GetLrc(_):
-            return ["Referer": Router.Biu_BaseAPI_FM]
+        case .login:
+            return ["Referer": Router.biuBaseAPIPWA]
+        case .signup:
+            return ["Referer": Router.biuBaseAPISignup]
+        case .getFMData:
+            return ["Referer": Router.biuBaseAPIFM]
+        case .getLrc:
+            return ["Referer": Router.biuBaseAPIFM]
         default:
             return [:]
         }
     }
-    
+
     var baseURLString: String {
         switch self {
-        case .Login(_, _):
-            return Router.Biu_BaseAPI_Android
-        case .UpdateSelfInfo:
-            return Router.Biu_BaseAPI_Android
-        case .GetMyList:
-            return Router.Biu_BaseAPI_Android
-        case .GetNewList:
-            return Router.Biu_BaseAPI_Android
-        case .GetHotList:
-            return Router.Biu_BaseAPI_Android
-        case .GetSongTickets(_):
-            return Router.Biu_BaseAPI_Android
-        case .GetSongDetails(_):
-            return Router.Biu_BaseAPI_Android
-        case .GetSongsDetails(_):
-            return Router.Biu_BaseAPI_Android
-        case .GetLike:
-            return Router.Biu_BaseAPI_Android
-        case .AddLike(_):
-            return Router.Biu_BaseAPI_Android
-        case .DelLike(_):
-            return Router.Biu_BaseAPI_Android
-        case .Search(_):
-            return Router.Biu_BaseAPI_Android
-        case .GetFMData(_):
-            return Router.Biu_BaseAPI_Web
-        case .GetLrc(_):
-            return Router.Biu_BaseAPI_Web
-        case .Signup(_, _, _):
-            return Router.Biu_BaseAPI_Web
+        case .login:
+            return Router.biuBaseAPIAndroid
+        case .updateSelfInfo:
+            return Router.biuBaseAPIAndroid
+        case .getMyList:
+            return Router.biuBaseAPIAndroid
+        case .getNewList:
+            return Router.biuBaseAPIAndroid
+        case .getHotList:
+            return Router.biuBaseAPIAndroid
+        case .getSongTickets:
+            return Router.biuBaseAPIAndroid
+        case .getSongDetails:
+            return Router.biuBaseAPIAndroid
+        case .getSongsDetails:
+            return Router.biuBaseAPIAndroid
+        case .getLike:
+            return Router.biuBaseAPIAndroid
+        case .addLike:
+            return Router.biuBaseAPIAndroid
+        case .delLike:
+            return Router.biuBaseAPIAndroid
+        case .search:
+            return Router.biuBaseAPIAndroid
+        case .getFMData:
+            return Router.biuBaseAPIWeb
+        case .getLrc:
+            return Router.biuBaseAPIWeb
+        case .signup:
+            return Router.biuBaseAPIWeb
         }
     }
-    
+
     var method: HTTPMethod {
         switch self {
-        case .Signup(_, _, _):
+        case .signup:
             return .post
-        case .Login(_, _):
+        case .login:
             return .post
-        case .UpdateSelfInfo:
+        case .updateSelfInfo:
             return .post
-        case .GetLike:
+        case .getLike:
             return .post
-        case .GetMyList:
+        case .getMyList:
             return .post
-        case .GetNewList:
+        case .getNewList:
             return .post
-        case .GetHotList:
+        case .getHotList:
             return .post
-        case .GetSongTickets(_):
+        case .getSongTickets:
             return .post
-        case .GetSongDetails(_):
+        case .getSongDetails:
             return .post
-        case .GetSongsDetails(_):
+        case .getSongsDetails:
             return .post
-        case .AddLike(_):
+        case .addLike:
             return .post
-        case .Search(_):
+        case .search:
             return .post
-        case .DelLike(_):
+        case .delLike:
             return .post
-        case .GetFMData(_):
+        case .getFMData:
             return .get
-        case .GetLrc(_):
+        case .getLrc:
             return .get
         }
     }
-    
+
     var path: String {
         switch self {
-        case .GetLike:
+        case .getLike:
             return getConfig(withName: "GetLike", cat: "Route")
-        case .UpdateSelfInfo:
+        case .updateSelfInfo:
             return getConfig(withName: "UpdateSelfInfo", cat: "Route")
-        case .Login(_, _):
+        case .login:
             return getConfig(withName: "Login", cat: "Route")
-        case .GetMyList:
+        case .getMyList:
             return getConfig(withName: "GetMyList", cat: "Route")
-        case .GetNewList:
+        case .getNewList:
             return getConfig(withName: "GetNewList", cat: "Route")
-        case .GetHotList:
+        case .getHotList:
             return getConfig(withName: "GetHotList", cat: "Route")
-        case .GetSongTickets(_):
+        case .getSongTickets:
             return getConfig(withName: "GetSongTickets", cat: "Route")
-        case .GetSongDetails(_):
+        case .getSongDetails:
             return getConfig(withName: "GetSongDetails", cat: "Route")
-        case .GetSongsDetails(_):
+        case .getSongsDetails:
             return getConfig(withName: "GetSongDetails", cat: "Route")
-        case .AddLike(_):
+        case .addLike:
             return getConfig(withName: "AddLike", cat: "Route")
-        case .DelLike(_):
+        case .delLike:
             return getConfig(withName: "DelLike", cat: "Route")
-        case .Search(_):
+        case .search:
             return getConfig(withName: "Search", cat: "Route")
-        case .GetFMData(_):
+        case .getFMData:
             return getConfig(withName: "GetFMData", cat: "Route")
-        case .GetLrc(_):
+        case .getLrc:
             return getConfig(withName: "GetLrc", cat: "Route")
-        case .Signup(_, _, _):
+        case .signup:
             return getConfig(withName: "Signup", cat: "Route")
         }
     }
-    
+
     var parameters: Parameters {
         switch self {
-        case .Signup(let username, let password, let name):
+        case .signup(let username, let password, let name):
             return [
                 "email": username,
                 "password": password,
@@ -173,91 +173,89 @@ enum Router: URLRequestConvertible {
                 "qq": "",
                 "gender": "X"
             ]
-        case .GetLike:
+        case .getLike:
             return [
                 "token": Variable.token ?? "",
                 "lid": Variable.likecollect ?? ""
             ]
-        case .UpdateSelfInfo:
+        case .updateSelfInfo:
             return [
-                "token": Variable.token ?? "",
+                "token": Variable.token ?? ""
             ]
-        case .Login(let username, let password):
+        case .login(let username, let password):
             return [
                 "email": username,
                 "password": password
             ]
-        case .GetMyList:
+        case .getMyList:
             return [
                 "token": Variable.token ?? "",
                 "uid": Variable.uid ?? ""
             ]
-        case .GetNewList:
+        case .getNewList:
             return [
                 "token": Variable.token ?? "",
                 "uid": Variable.uid ?? ""
             ]
-        case .GetHotList:
+        case .getHotList:
             return [
                 "token": Variable.token ?? "",
                 "uid": Variable.uid ?? ""
             ]
-        case .Search(let Query):
+        case .search(let query):
             return [
                 "token": Variable.token ?? "",
                 "uid": Variable.uid ?? "",
-                "search": Query
+                "search": query
             ]
-        case .GetSongTickets(let Songid):
+        case .getSongTickets(let songid):
             return [
                 "token": Variable.token ?? "",
-                "sid": Songid
+                "sid": songid
             ]
-        case .GetSongDetails(let Songid):
+        case .getSongDetails(let songid):
             return [
                 "token": Variable.token ?? "",
-                "sid": Songid
+                "sid": songid
             ]
-        case .GetSongsDetails(let Songid):
+        case .getSongsDetails(let songid):
             return [
                 "token": Variable.token ?? "",
-                "sid": String(Songid.joined(separator: ","))
+                "sid": String(songid.joined(separator: ","))
             ]
-        case .AddLike(let Songid):
+        case .addLike(let songid):
             return [
                 "token": Variable.token ?? "",
-                "sid": Songid
+                "sid": songid
             ]
-        case .DelLike(let Songid):
+        case .delLike(let songid):
             return [
                 "token": Variable.token ?? "",
-                "sid": Songid
+                "sid": songid
             ]
-        case .GetFMData(let Category):
+        case .getFMData(let category):
             return [
                 "datacenter": "0",
-                "rid": String(Category),
+                "rid": String(category),
                 "_r": String(Double.random(in: 0...1))
             ]
-        case .GetLrc(let Songid):
+        case .getLrc(let songid):
             return [
-                "sid": Songid
+                "sid": songid
             ]
         }
     }
-    
-    
-    
+
     // MARK: - URLRequestConvertible
-    
+
     func asURLRequest() throws -> URLRequest {
         let url = try baseURLString.asURL()
-        
+
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
         urlRequest.httpMethod = method.rawValue
         headers.forEach {  urlRequest.setValue($0.value, forHTTPHeaderField: $0.key) }
         Router.PublicHeaders.forEach { urlRequest.setValue($0.value, forHTTPHeaderField: $0.key) }
-        
+
         urlRequest = try URLEncoding.default.encode(urlRequest, with: parameters)
         debugPrint("Requested: \(urlRequest)")
         return urlRequest

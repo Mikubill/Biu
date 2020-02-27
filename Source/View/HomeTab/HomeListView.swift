@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct HomeListView: View {
-    @EnvironmentObject var inita: initAtHome
-    
+    @EnvironmentObject var inita: Initialization
+
     var body: some View {
-        ForEach(Variable.my_music_list_title.indices, id:\.self) { i in
-            CollectionView(i: i, title:Variable.my_music_list_title, key: Variable.my_music_list_key)
+        ForEach(Variable.myPlaylistTitle.indices, id: \.self) { index in
+            CollectionView(collection: index, title: Variable.myPlaylistTitle, key: Variable.myPlaylistKey)
             .padding(.leading, 10)
             .padding(.trailing, 10)
         }

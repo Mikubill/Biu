@@ -11,16 +11,12 @@ import Alamofire
 import SwiftyJSON
 
 final class CollectionDetails: ObservableObject {
-    
-    @Published var Playlist = [Song]()
-    @Published var Hlist = [Song]()
-    
-    func getdetails(_ index: [String],_ defaultMode: Bool) {
-        
+    @Published var defaultPlaylist = [Song]()
+    @Published var hlist = [Song]()
+    func getdetails(_ index: [String], _ defaultMode: Bool) {
         debugPrint("Called")
-        
-        Constants.S.request(Router.GetSongsDetails(Songid: index))
-            .validate().responseJSON() { response in
+        Constants.session.request(Router.getSongsDetails(songid: index))
+            .validate().responseJSON { response in
                 guard let object = response.data else {
                     return
                 }
@@ -29,9 +25,9 @@ final class CollectionDetails: ObservableObject {
                     return
                 }
                 if defaultMode {
-                    self.Playlist = FMPairs(json["result"])
+                    self.defaultPlaylist = jsonResultParser(json["result"])
                 } else {
-                    self.Hlist = FMPairs(json["result"])
+                    self.hlist = jsonResultParser(json["result"])
                 }
         }
     }

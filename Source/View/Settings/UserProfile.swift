@@ -12,7 +12,7 @@ import KingfisherSwiftUI
 struct UserProfile: View {
     var body: some View {
         HStack {
-            KFImage(URL(string: "\(Router.Biu_BaseAPI_Avatar)/\(Variable.uid ?? "0")")!)
+            KFImage(URL(string: "\(Router.biuBaseAPIAvatar)/\(Variable.uid ?? "0")")!)
                 .resizable()
                 .cornerRadius(5)
                 .shadow(radius: 5)

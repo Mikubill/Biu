@@ -9,27 +9,27 @@
 import SwiftUI
 
 struct UserInterface: View {
-    
+
     @EnvironmentObject var state: AppState
     @State private var showGreetinga = true
     @State private var shuffle = false
     @State private var timerstate = false
     @State private var timerstatet = false
     @State private var showingSheet = false
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text("用户界面设置")
                 .font(Font.headline)
-            
+
             Divider()
-            
+
             Toggle(isOn: $showGreetinga) {
                 Text("Auto Drak Mode")
             }.padding()
                 .disabled(true)
-            
-            Toggle(isOn: $state.RandomPlay) {
+
+            Toggle(isOn: $state.randomPlay) {
                 Text("随机歌单歌曲")
             }
             .padding()
@@ -47,17 +47,17 @@ struct UserInterface: View {
                 //                            .disabled(self.shuffle)
             }
             .padding()
-            
+
             Toggle(isOn: $timerstate) {
                 Text("定时关闭")
             }
             .padding()
             .disabled(false)
-            
+
             if self.timerstate {
                 HStack {
                     Text("关闭时间设置： ")
-                    
+
                     Button(action: {
                         self.showingSheet = true
                     }) {

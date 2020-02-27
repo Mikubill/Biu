@@ -10,16 +10,16 @@ import SwiftUI
 
 struct UpdateButtonView: View {
     @State var update = false
-    @EnvironmentObject var inita: initAtHome
-    
+    @EnvironmentObject var inita: Initialization
+
     var body: some View {
         Button(action: {
             self.update = true
-            self.inita.GetJsonData()
+            self.inita.getJsonData()
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
                 self.update = false
             }
-        } ) {
+        }) {
             if self.update {
                 ActivityIndicator(style: .medium)
             }

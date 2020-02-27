@@ -10,14 +10,14 @@ import Foundation
 import AVFoundation
 
 extension AppState {
-    
+
     func worker(with url: URL) {
-        if var k = URLComponents(string: url.absoluteString) {
-            k.query = nil
-            self.url = k.url
+        if var path = URLComponents(string: url.absoluteString) {
+            path.query = nil
+            self.url = path.url
             print(self.url!)
         }
-        let storage = self.FMisOnInternal ? Variable.flash : Variable.storage
+        let storage = self.radioIsOnInternal ? Variable.flash : Variable.storage
         // debugPrint("Cache Entry: \(String(describing: storage))")
         // Trying to retrieve a track from cache asynchronously.
         storage?.async.entry(forKey: self.url!.absoluteString, completion: { result in
@@ -48,8 +48,8 @@ extension AppState {
 //                self.player.replaceCurrentItem(with: playerItem)
                 self.player = AVPlayer(playerItem: playerItem)
                 self.player.automaticallyWaitsToMinimizeStalling = false
-                
-                self.readyObserverToken = self.player.observe(\.status) { object, change in
+
+                self.readyObserverToken = self.player.observe(\.status) { _, _ in
                     if self.player.status == AVPlayer.Status.readyToPlay {
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
                             // Start to play

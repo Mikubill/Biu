@@ -14,7 +14,7 @@ struct About: View {
             Text("About")
                 .font(Font.headline)
             Divider()
-            
+
             Text("\(Constants.httpVia) By Ayari")
                 .padding()
             VStack(alignment: .leading, spacing: 10) {

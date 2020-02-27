@@ -8,7 +8,7 @@
 
 import Foundation
 
-func date2String(_ date:Date, dateFormat:String = "HH:mm") -> String {
+func date2String(_ date: Date, dateFormat: String = "HH:mm") -> String {
     let formatter = DateFormatter()
     formatter.locale = Locale.init(identifier: "zh_CN")
     formatter.dateFormat = dateFormat
@@ -17,8 +17,8 @@ func date2String(_ date:Date, dateFormat:String = "HH:mm") -> String {
 }
 
 func getConfig(withName name: String, cat: String) -> String {
-    let dictionary = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Biu", ofType: "plist")!);
-    let array = dictionary?[cat] as! NSDictionary
+    let dictionary = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Biu", ofType: "plist")!)
+    let array = dictionary?[cat] as? NSDictionary
     //.xor(key: UInt8(7))!
-    return array[name] as! String
+    return array?[name] as? String ?? ""
 }

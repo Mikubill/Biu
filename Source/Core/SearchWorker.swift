@@ -13,14 +13,14 @@ import Alamofire
 import Kingfisher
 
 final class SearchWorker: ObservableObject {
-    
+
     @Published private(set) var start = false
     @Published private(set) var songs = [Song]()
-    
-    func search(query:String) {
+
+    func search(query: String) {
         self.start = true
-        Constants.S.request(Router.Search(Query: query))
-            .validate().responseJSON() { response in
+        Constants.session.request(Router.search(query: query))
+            .validate().responseJSON { response in
                 guard let object = response.data else {
                     return
                 }
@@ -32,7 +32,7 @@ final class SearchWorker: ObservableObject {
                 self.songs = searchpairs(json["result"])
         }
     }
-    
+
     func clearSongs() {
         self.songs = [Song]()
     }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AppRootView: View {
 
-    @ObservedObject var loginhelper : LoginHelper
+    @ObservedObject var loginhelper: LoginHelper
     var body: some View {
         Group {
             if self.loginhelper.token != "" {

@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 struct PlayerControls: View {
-    
+
     @EnvironmentObject var state: AppState
     @EnvironmentObject var playerstate: PlayerState
     @State var duration: Double = 0
@@ -20,17 +20,16 @@ struct PlayerControls: View {
         VStack {
             VStack {
                 Spacer()
-                
+
                 Slider(value: $duration, in: 0...1, onEditingChanged: {
                     debugPrint($0, self.duration)
                     self.endTimer()
-                    self.state.UserChanged($0, dest: self.duration)
+                    self.state.userModified($0, dest: self.duration)
                     self.startTimer()
                 })
-                    .frame(width: 350.0, height:40)
+                    .frame(width: 350.0, height: 40)
                     .disabled(self.state.isLoading)
-                
-                
+
                 HStack {
                     Text("\(self.timestamp.0.0):\(self.timestamp.0.1)")
                     Spacer()
@@ -40,12 +39,12 @@ struct PlayerControls: View {
             }
             Spacer()
             HStack(spacing: 40) {
-                
-                //MARK: buttons
+
+                // MARK: buttons
                 if !self.state.isLikeing {
-                    if self.state.NowSong != nil {
-                        if !(self.state.NowSong?.like ?? false) {
-                            Button(action: { self.state.addlike(self.state.NowSong?.id ?? "1") }) {
+                    if self.state.nowPlaying != nil {
+                        if !(self.state.nowPlaying?.like ?? false) {
+                            Button(action: { self.state.addlike(self.state.nowPlaying?.id ?? "1") }) {
                                 Image(systemName: "heart")
                                     .resizable()
                                     .font(Font.title.weight(.thin))
@@ -53,7 +52,7 @@ struct PlayerControls: View {
                                     .frame(width: 25, height: 25)
                             }
                         } else {
-                            Button(action: { self.state.dellike(self.state.NowSong?.id ?? "1") }) {
+                            Button(action: { self.state.dellike(self.state.nowPlaying?.id ?? "1") }) {
                                 Image(systemName: "heart.fill")
                                     .resizable()
                                     .font(Font.title.weight(.thin))
@@ -62,8 +61,8 @@ struct PlayerControls: View {
                             }
                         }
                     } else {
-                        if self.state.Playlist.count == 0 {
-                            Button(action: { self.state.addlike(self.state.NowSong?.id ?? "1") }) {
+                        if self.state.playlist.count == 0 {
+                            Button(action: { self.state.addlike(self.state.nowPlaying?.id ?? "1") }) {
                                 Image(systemName: "heart")
                                     .resizable()
                                     .font(Font.title.weight(.thin))
@@ -80,7 +79,7 @@ struct PlayerControls: View {
                     ActivityIndicator(style: .large)
                         .frame(width: 25, height: 25)
                 }
-                
+
                 Button(action: {
                     self.state.isLoading = true
                     self.state.pull()
@@ -91,17 +90,17 @@ struct PlayerControls: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 25, height: 25)
                 }
-                .disabled(self.state.Playlist.count == 0)
+                .disabled(self.state.playlist.count == 0)
                 if !self.state.isLoading {
                     Button(action: {
-                        self.state.Playingtoggle()
+                        self.state.playingtoggle()
                     }) {
                         Image(systemName: self.state.isPlaying ? "pause.circle" : "play.circle")
                             .resizable()
                             .font(Font.title.weight(.ultraLight))
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 70, height: 70)
-                            .disabled(self.state.Playlist.count == 0)
+                            .disabled(self.state.playlist.count == 0)
                     }
                 } else {
                     ActivityIndicator(style: .large)
@@ -117,11 +116,11 @@ struct PlayerControls: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 25, height: 25)
                 }
-                .disabled(self.state.Playlist.count == 0)
-                
+                .disabled(self.state.playlist.count == 0)
+
                 Button(action: {
-                    self.playerstate.PlayListOneIsOn = true
-                    self.state.UpdateListInfo()
+                    self.playerstate.playListOneIsOn = true
+                    self.state.updateListInfo()
                 }) {
                     Image(systemName: "list.dash")
                         .resizable()
@@ -129,35 +128,35 @@ struct PlayerControls: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 25, height: 25)
                 }
-                .disabled(self.state.FMisOn)
-                .disabled(self.state.Playlist.count == 0)
-                
+                .disabled(self.state.radioIsOn)
+                .disabled(self.state.playlist.count == 0)
+
             }
             .padding(Edge.Set.bottom, 20)
             Spacer()
         }
-        .sheet(isPresented: $playerstate.PlayListOneIsOn) {
+        .sheet(isPresented: $playerstate.playListOneIsOn) {
             PlayListView()
             .environmentObject(self.state)
             .environmentObject(self.playerstate)
         }
-        .onAppear() {
+        .onAppear {
             self.duration = self.state.during
             self.timestamp = self.state.timestamp
             self.startTimer()
         }
-        .onDisappear() {
+        .onDisappear {
             self.endTimer()
         }
     }
-    
+
     func startTimer() {
         Variable.ntimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true) { _ in
             self.duration = self.state.during
             self.timestamp = self.state.timestamp
         }
     }
-    
+
     func endTimer() {
         Variable.ntimer?.invalidate()
     }

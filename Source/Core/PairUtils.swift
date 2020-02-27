@@ -10,32 +10,32 @@ import Foundation
 import SwiftyJSON
 import Kingfisher
 
-func pairs(_ json:JSON) -> ([String], [Any]){
-    var q:JSON
-    var r = [String]()
-    var b = [String]()
-    var s = [[String]]()
-    q = json["result"].exists() ? json["result"] : json
-    for (_,subJson):(String, JSON) in q {
-        for (key,subJson):(String, JSON) in subJson {
+func pairs(_ json: JSON) -> ([String], [Any]) {
+    var data: JSON
+    var titles = [String]()
+    var id = [String]()
+    var ids = [[String]]()
+    data = json["result"].exists() ? json["result"] : json
+    for (_, subJson):(String, JSON) in data {
+        for (key, subJson):(String, JSON) in subJson {
             switch key {
-            case "title": r.append(subJson.string ?? "nil")
-            case "sid": b.append(subJson.string ?? "1")
-            case "sids": s.append(subJson.arrayValue.map { $0.string ?? "1" })
+            case "title": titles.append(subJson.string ?? "nil")
+            case "sid": id.append(subJson.string ?? "1")
+            case "sids": ids.append(subJson.arrayValue.map { $0.string ?? "1" })
             default: break
             }
         }
     }
-    return s == [] ? (r, b):(r, s)
+    return ids == [] ? (titles, id):(titles, ids)
 }
 
-func searchpairs(_ json:JSON) -> [Song] {
-    var q:JSON
+func searchpairs(_ json: JSON) -> [Song] {
+    var data: JSON
     var list = [Song]()
-    q = json["result"].exists() ? json["result"] : json
-    for (_,subJson):(String, JSON) in q {
+    data = json["result"].exists() ? json["result"] : json
+    for (_, subJson):(String, JSON) in data {
         var song = Song()
-        for (key,subJson):(String, JSON) in subJson {
+        for (key, subJson):(String, JSON) in subJson {
             switch key {
             case "title": song.title = subJson.string ?? "nil"
             case "sid": song.id = subJson.string ?? "1"
@@ -49,7 +49,7 @@ func searchpairs(_ json:JSON) -> [Song] {
     return list
 }
 
-func songpairs(_ json:JSON) -> String? {
+func songpairs(_ json: JSON) -> String? {
     for (key, subJson):(String, JSON) in json {
         switch key {
         case "url": return subJson.string ?? nil
@@ -59,18 +59,18 @@ func songpairs(_ json:JSON) -> String? {
     return nil
 }
 
-func SongFullPairs(_ json:JSON) -> Song {
+func songFullPairs(_ json: JSON) -> Song {
     var song = Song()
-    let q = json["result"].exists() ? json["result"] : json
-    for (key, subJson):(String, JSON) in q {
+    let rawResult = json["result"].exists() ? json["result"] : json
+    for (key, subJson):(String, JSON) in rawResult {
         switch key {
         case "title": song.title = subJson.string ?? "nil"
         case "sid": song.id = subJson.string ?? "1"
         case "album": song.album = subJson.string ?? "nil"
         case "singer": song.singer = subJson.string ?? "nil"
         case "like":
-            if let p = subJson.string {
-                if p == "1" {
+            if let data = subJson.string {
+                if data == "1" {
                     song.like = true
                 } else {
                     song.like = false
@@ -82,12 +82,12 @@ func SongFullPairs(_ json:JSON) -> Song {
     return song
 }
 
-func SongFullPairsLike(_ index: String, _ json:JSON) -> Bool {
+func songFullPairsLike(_ index: String, _ json: JSON) -> Bool {
     if !json["result"][0]["sids"].exists() {
         return false
     } else {
-        let q = json["result"][0]["sids"]
-        for (_, subJson):(String, JSON) in q {
+        let result = json["result"][0]["sids"]
+        for (_, subJson):(String, JSON) in result {
             if subJson.string == index {
                 return true
             }
@@ -96,7 +96,7 @@ func SongFullPairsLike(_ index: String, _ json:JSON) -> Bool {
     return false
 }
 
-func FMPairs(_ json:JSON) -> [Song] {
+func jsonResultParser(_ json: JSON) -> [Song] {
     var finalsongs = [Song]()
     var songs = [Song]()
     for (_, subJson):(String, JSON) in json {
@@ -112,9 +112,9 @@ func FMPairs(_ json:JSON) -> [Song] {
         }
         songs.append(song)
     }
-    for i in songs.indices {
-        if songs[i].id != "-1",songs[i].id != ""  {
-            finalsongs.append(songs[i])
+    for item in songs.indices {
+        if songs[item].id != "-1", songs[item].id != "" {
+            finalsongs.append(songs[item])
         }
     }
     return finalsongs

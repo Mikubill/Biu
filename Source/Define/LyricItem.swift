@@ -9,12 +9,12 @@
 import Foundation
 
 public class LyricItem {
-    
+
     public init(time: TimeInterval, text: String = "") {
         self.time = time
         self.text = text
     }
-    
+
     public var time: TimeInterval
     public var text: String
 }
