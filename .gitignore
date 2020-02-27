@@ -1,0 +1,8 @@
+.git-backed/*
+Carthage/*
+.DS_Store
+*/.DS_Store
+**/.DS_Store
+Biu.plist
+*/Biu.plist
+**/Biu.plist

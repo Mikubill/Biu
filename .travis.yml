@@ -1,0 +1,20 @@
+
+language: swift
+os: osx
+osx_image: xcode11.3
+
+cache:
+  directories:
+  - Carthage
+
+env:
+  global:
+    - LANG=en_US.UTF-8
+    - LC_ALL=en_US.UTF-8
+
+before_script:
+  - export GITHUB_ACCESS_TOKEN=$token
+  - carthage update --cache-builds --platform iOS
+
+script:
+  - xcodebuild CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO
