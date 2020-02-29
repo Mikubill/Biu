@@ -8,7 +8,6 @@
 
 import SwiftUI
 import UIKit
-import KingfisherSwiftUI
 
 struct HomeViewStack: View {
     @EnvironmentObject var state: AppState
@@ -29,14 +28,7 @@ struct HomeViewStack: View {
                             self.state.isLoading = true
                             self.state.start(for: Song(id: self.title[self.index * 2 + index], title: self.key[self.index * 2 + index], singer: "", album: ""))
                         }) {
-                            KFImage(URL(string: "\(Router.biuBaseAPICover)/\(self.title[self.index * 2 + index])")!)
-                                .renderingMode(.original)
-                                .resizable()
-                                .frame(width: 100, height: 100, alignment: .center)
-                                .cornerRadius(5)
-                                .shadow(radius: 5)
-                                .scaledToFit()
-
+                            ImageView(imageURL: "\(Router.biuBaseAPICover)/\(self.title[self.index * 2 + index])", width: 100, height: 100)
                             Text(String(self.key[self.index * 2 + index]))
                                 .font(Font.subheadline)
                                 .lineLimit(1)

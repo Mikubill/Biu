@@ -146,6 +146,7 @@ final class AppState: NSObject, ObservableObject {
         self.playlist = playlist
         self.identifier = 0
         self.play()
+        self.updateListInfo()
     }
 
     func push() {
@@ -329,7 +330,7 @@ final class AppState: NSObject, ObservableObject {
     }
 
     func updateListInfo() {
-        print("Called UpdateListInfo")
+        
         if self.playlist.count == 0 {
             return
         }
@@ -339,6 +340,7 @@ final class AppState: NSObject, ObservableObject {
             request += self.playlist[item].id
             request += ","
         }
+        print("Called UpdateListInfo: \(localRange)")
         Constants.session.request(Router.getSongDetails(songid: request))
             .validate().responseJSON { response in self.infoHandler(localRange, response) }
     }
@@ -570,17 +572,14 @@ final class AppState: NSObject, ObservableObject {
             return
         }
         let answer = jsonResultParser(json["result"])
-        var counter = 0
-        if answer.count > 0 {
+        for result in answer {
             for index in localRanger {
-                if counter < self.playlist.count && counter < answer.count {
-                    if self.playlist[index].id == answer[counter].id {
-                        self.playlist[index] = answer[counter]
-                    }
+                if self.playlist[index].id == result.id || result.id == "" {
+                    self.playlist[index] = result
+                    debugPrint("Music Metadata Updated: \(self.playlist[index].id)")
+                    continue
                 }
-                counter += 1
             }
         }
     }
-
 }

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import KingfisherSwiftUI
 
 struct FMViewItem: View {
 
@@ -26,14 +25,7 @@ struct FMViewItem: View {
                     }
                 }) {
                     VStack {
-                        KFImage(URL(string: "\(Router.biuBaseAPIFMCover)/\(self.fmGroupIndex * 2 + index).jpg")!)
-                            .renderingMode(.original)
-                            .resizable()
-                            .frame(width: 200, height: 80, alignment: .center)
-                            .cornerRadius(5)
-                            .shadow(radius: 5)
-                            .scaledToFit()
-
+                        ImageView(imageURL: "\(Router.biuBaseAPIFMCover)/\(self.fmGroupIndex * 2 + index).jpg", width: 200, height: 80)
                         Text(String(FMViewItem.FMContents[self.fmGroupIndex * 2 + index]))
                             .font(Font.subheadline)
                             .lineLimit(nil)

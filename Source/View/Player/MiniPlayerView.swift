@@ -16,14 +16,8 @@ struct MiniPlayerView: View {
 
     var body: some View {
         HStack {
-            VStack {
-                KFImage(URL(string: "\(Router.biuBaseAPICover)/\(self.state.nowPlaying?.id ?? "0")")!)
-                    .resizable()
-//                    .cornerRadius(5)
-                    .frame(width: 50, height: 50, alignment: .center)
-                    .scaledToFit()
-                    .clipShape(Circle())
-            }
+            ImageView(imageURL: "\(Router.biuBaseAPICover)/\(self.state.nowPlaying?.id ?? "0")", width: 50, height: 50)
+                .clipShape(Circle())
             VStack {
                 if !self.state.radioIsLoading {
                     HStack {

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import KingfisherSwiftUI
 
 struct CollectionView: View {
 
@@ -22,14 +21,8 @@ struct CollectionView: View {
             if self.key != [] {
                 NavigationLink(destination: CollectionListView(collectionIndex: self.collection, title: self.title)) {
                     HStack {
-                        KFImage(URL(string: "\(Router.biuBaseAPICover)/\(self.getFirstid(self.collection))")!)
-                            .renderingMode(.original)
-                            .resizable()
-                            .cornerRadius(5)
-                            .shadow(radius: 5)
-                            .frame(width: 50, height: 50, alignment: .leading)
-                            .scaledToFit()
-
+                        ImageView(imageURL: "\(Router.biuBaseAPICover)/\(self.getFirstid(self.collection))"
+                            , width: 50, height: 50, alignment: .leading)
                         VStack(alignment: .leading) {
                             Text(Variable.myPlaylistKey[self.collection])
                                 .lineLimit(1)

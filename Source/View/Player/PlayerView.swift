@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import KingfisherSwiftUI
-
 struct PlayerView: View {
 
     @EnvironmentObject var state: AppState
@@ -40,13 +38,7 @@ struct PlayerView: View {
             }
 
             .padding()
-            KFImage(URL(string: "\(Router.biuBaseAPICover)/\(self.state.nowPlaying?.id ?? "0")")!)
-                .resizable()
-                .frame(width: 300, height: 300, alignment: .center)
-                .cornerRadius(10)
-                .scaledToFit()
-                .clipped(antialiased: true)
-                .shadow(radius: 10)
+            ImageView(imageURL: "\(Router.biuBaseAPICover)/\(self.state.nowPlaying?.id ?? "0")", width: 300, height: 300)
                 .padding()
             VStack(alignment: .center) {
                 Text("这里是设计用来放歌词的地方")
@@ -55,7 +47,7 @@ struct PlayerView: View {
                     .font(.headline)
 
             }
-            .frame(width: 400, height: 150, alignment: .center)
+//            .frame(width: 400, height: 150, alignment: .center)
             PlayerControls()
         }
     }

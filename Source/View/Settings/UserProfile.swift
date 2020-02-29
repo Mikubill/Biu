@@ -7,18 +7,12 @@
 //
 
 import SwiftUI
-import KingfisherSwiftUI
 
 struct UserProfile: View {
     var body: some View {
         HStack {
-            KFImage(URL(string: "\(Router.biuBaseAPIAvatar)/\(Variable.uid ?? "0")")!)
-                .resizable()
-                .cornerRadius(5)
-                .shadow(radius: 5)
-                .frame(width: 70, height: 70, alignment: .center)
-                .animation(.easeInOut)
-            .padding(Edge.Set.leading, 10)
+            ImageView(imageURL: "\(Router.biuBaseAPIAvatar)/\(Variable.uid ?? "0")", width: 70, height: 70)
+                .padding(Edge.Set.leading, 10)
             VStack(alignment: .leading) {
                 Text("\(Variable.name ?? "nil")".prefix(40))
                     .font(.headline)
