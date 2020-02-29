@@ -48,6 +48,7 @@ struct ImageView: View {
                     .opacity(0.3)
                     .frame(width: width, height: height, alignment: alignment)
                     .foregroundColor(.gray)
+                    .animation(.easeInOut)
         }
         .renderingMode(.original)
         .cancelOnDisappear(true)
