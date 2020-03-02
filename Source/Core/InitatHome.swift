@@ -13,8 +13,8 @@ import SwiftyJSON
 import Alamofire
 import Kingfisher
 
-final class Initialization: ObservableObject {
-
+class Initialization: ObservableObject {
+    
     func totalSize() throws -> UInt64 {
         var size: UInt64 = 0
         let filemanager = FileManager()
@@ -29,9 +29,9 @@ final class Initialization: ObservableObject {
         }
         return size
     }
-
+    
     func updateCacheSize() {
-
+        
         ImageCache.default.calculateDiskStorageSize { result in
             switch result {
             case .success(let size):
@@ -40,13 +40,13 @@ final class Initialization: ObservableObject {
                 print(error)
             }
         }
-
+        
         if let size = try? self.totalSize() {
             self.cpCache = "Disk Songs Cache Size: \(String(format: "%.2f", (Double(size) / 1024 / 1024))) MB"
         }
         self.isChanged.toggle()
     }
-
+    
     func dataHandler(_ response: AFDataResponse<Any>) -> ([String], [Any]) {
         guard let object = response.data else {
             return ([], [])
@@ -58,33 +58,35 @@ final class Initialization: ObservableObject {
         self.isChanged.toggle()
         return pairs(json)
     }
-
+    
     func getJsonData() {
-
+        
         self.isChanged.toggle()
-
+        
         // MARK: Get My List
         Constants.session.request(Router.getMyList).validate().responseJSON { response in
             let data = self.dataHandler(response) as? ([String], [[String]])
             assert(data != nil)
             (Variable.myPlaylistKey, Variable.myPlaylistTitle) = data! }
-
+        
         // MARK: Get Newest
         Constants.session.request(Router.getNewList).validate().responseJSON { response in
-            let data = self.dataHandler(response) as? ([String], [String])
+            let data = self.dataHandler(response) as? ([String], [Song])
             assert(data != nil)
-            (Variable.newMusicPlaylistKey, Variable.newMusicPlaylistTitle) = data! }
-
+            Variable.newMusicPlaylist = data!.1 }
+        
         // MARK: Get Hottest
         Constants.session.request(Router.getHotList).validate().responseJSON { response in
-            let data = self.dataHandler(response) as? ([String], [String])
+            let data = self.dataHandler(response) as? ([String], [Song])
             assert(data != nil)
-            (Variable.hotMusicPlayListKey, Variable.hotMusicPlaylistTitle) = data! }
-
+            Variable.hotMusicPlaylist = data!.1 }
+        
         updateCacheSize()
-
+        
     }
     @Published var isChanged = false
     @Published var kfCache = ""
     @Published var cpCache = ""
+    
+    
 }

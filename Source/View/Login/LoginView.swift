@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var inita: Initialization
     @State var showbutton = true
     @State var showreg = false
     @EnvironmentObject var loginhelper: LoginHelper
@@ -113,6 +114,9 @@ struct LoginView: View {
 
             }
         }
+        .onDisappear(){
+            self.inita.getJsonData()
+        }
         .padding(20)
         .gesture(
             DragGesture()
@@ -125,6 +129,7 @@ struct LoginView: View {
         //                .environmentObject(self.loginhelper)
         //        }
     }
+    
 
     func commit() {
         UIApplication.shared.endEditing()

@@ -15,22 +15,20 @@ struct HomeViewStack: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     var index: Int
-    var title: [String]
-    var key: [String]
 
     var body: some View {
         VStack {
             ForEach(0..<2) { index in
                 VStack {
-                    if self.title != [] {
+                    if Variable.hotMusicPlaylist.count != 0 {
                         Button(action: {
-                            debugPrint("Tapped Hot_Stack_\(self.index)")
+                            debugPrint("Tapped Hot_Stack_\(self.index * 2 + index)")
                             self.state.isLoading = true
-                            self.state.start(for: Song(id: self.title[self.index * 2 + index], title: self.key[self.index * 2 + index], singer: "", album: ""))
+                            self.state.start(for: Variable.hotMusicPlaylist[self.index * 2 + index])
                         }) {
-                            ImageView(imageURL: "\(Router.biuBaseAPICover)/\(self.title[self.index * 2 + index])", width: 100, height: 100)
-                            Text(String(self.key[self.index * 2 + index]))
-                                .font(Font.subheadline)
+                            ImageView(imageURL: "\(Router.biuBaseAPICover)/\(Variable.hotMusicPlaylist[self.index * 2 + index].id)", width: 100, height: 100)
+                            Text(Variable.hotMusicPlaylist[self.index * 2 + index].title)
+                                .font(.footnote)
                                 .lineLimit(1)
                                 .foregroundColor(self.colorScheme == .light ? .black : .white)
                         }
@@ -44,7 +42,7 @@ struct HomeViewStack: View {
                             .cornerRadius(5)
                         //                            .animation(.easeInOut)
                         Text("Loading..")
-                            .font(Font.subheadline)
+                            .font(.footnote)
                             .foregroundColor(self.colorScheme == .light ? .black : .white)
                     }
                 }

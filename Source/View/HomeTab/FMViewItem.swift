@@ -27,7 +27,7 @@ struct FMViewItem: View {
                     VStack {
                         ImageView(imageURL: "\(Router.biuBaseAPIFMCover)/\(self.fmGroupIndex * 2 + index).jpg", width: 200, height: 80)
                         Text(String(FMViewItem.FMContents[self.fmGroupIndex * 2 + index]))
-                            .font(Font.subheadline)
+                            .font(.footnote)
                             .lineLimit(nil)
                             .foregroundColor(self.colorScheme == .light ? .black : .white)
 
@@ -36,6 +36,7 @@ struct FMViewItem: View {
                     .padding(.trailing, 10)
                 }
                 .buttonStyle(PlainButtonStyle())
+                .frame(height: 110)
             }
         }
     }

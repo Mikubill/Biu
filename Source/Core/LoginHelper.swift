@@ -2,19 +2,19 @@
 //  LoginHelper.swift
 //  Biu
 //
-//  Created by Ayari on 2019/09/30.
-//  Copyright © 2019 Ayari. All rights reserved.
+//  Created by Akizuki Hiyako on 2020/03/01.
+//  Copyright © 2020 Akizuki Hiyako. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
+import Cache
+import UIKit.UIImage
 import SwiftUI
+import Foundation
 import SwiftyJSON
 import Alamofire
 import Kingfisher
-import Cache
 
-final class LoginHelper: ObservableObject {
+final class LoginHelper : ObservableObject {
     @Published var username = ""
     @Published var password = ""
     @Published var password2 = ""
@@ -24,13 +24,13 @@ final class LoginHelper: ObservableObject {
     @Published var signing = false
     @Published var webapi = false
     @Published private(set) var token = ""
-
+    
     func login() {
         self.signing  = true
         Constants.session.request(Router.login(username: self.username, password: self.password))
             .validate().responseJSON { response in self.ticketHelper(response) }
     }
-
+    
     func signup() {
         self.signing  = true
         if self.password != self.password2 {
@@ -40,7 +40,7 @@ final class LoginHelper: ObservableObject {
         Constants.session.request(Router.signup(username: self.username, password: self.password, name: self.name))
             .validate().responseJSON { response in self.signHelper(response) }
     }
-
+    
     func signHelper(_ response: AFDataResponse<Any>) {
         guard let object = response.data else {
             self.signing = false
@@ -55,12 +55,12 @@ final class LoginHelper: ObservableObject {
         }
         self.answer = "注册成功。正在登录..."
         Constants.session.request(Router.login(username: self.username, password: self.password))
-        .validate().responseJSON { response in self.ticketHelper(response) }
+            .validate().responseJSON { response in self.ticketHelper(response) }
     }
-
+    
     func ticketHelper(_ response: AFDataResponse<Any>) {
         self.signing = false
-//        print(response.debugDescription)
+        //        print(response.debugDescription)
         guard let object = response.data else {
             self.answer = "Request Error or System Error"
             return
@@ -77,10 +77,10 @@ final class LoginHelper: ObservableObject {
         self.readCache()
         self.updateSelfIntro()
     }
-
+    
     func updateSelfIntro() {
         Constants.session.request(Router.updateSelfInfo).validate().responseJSON { response in
-//            debugPrint(response.debugDescription)
+            //            debugPrint(response.debugDescription)
             guard let object = response.data else {
                 return
             }
@@ -115,11 +115,11 @@ final class LoginHelper: ObservableObject {
             }
         }
     }
-
+    
     func readCache() {
         if let ticket = try? Variable.ticketstorage?.object(forKey: "token") {
             if String(data: ticket, encoding: .utf8) != nil {
-//                debugPrint(String(data: ticket, encoding: .utf8) as Any)
+                //                debugPrint(String(data: ticket, encoding: .utf8) as Any)
                 self.answer = "登录成功"
                 self.token = "ok"
             } else {
@@ -131,7 +131,7 @@ final class LoginHelper: ObservableObject {
             self.token = ""
         }
     }
-
+    
     func logout() {
         try? Variable.ticketstorage?.removeAll()
         self.token = ""

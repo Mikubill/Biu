@@ -74,7 +74,7 @@ struct SongRow: View {
             }
 
         }
-        .frame(width: 400, alignment: .leading)
+        .frame(width: 400, height: 50, alignment: .leading)
         .onTapGesture {
             print("Tapped: \(self.song)")
             if self.withStartResponse {

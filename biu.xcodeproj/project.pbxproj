@@ -37,6 +37,7 @@
 		DA2950282341EAEB0097E5C9 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2950272341EAEB0097E5C9 /* LoadingIndicator.swift */; };
 		DA29502A234207E90097E5C9 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA295029234207E90097E5C9 /* RequestHandler.swift */; };
 		DA436688240A080E00D5FE9F /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA436687240A080E00D5FE9F /* ImageView.swift */; };
+		DA4C8CBB240B771F00533C88 /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C8CBA240B771F00533C88 /* LoginHelper.swift */; };
 		DA4FA0AC2406C6B800515C50 /* Biu.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA4FA0AB2406C6B800515C50 /* Biu.plist */; };
 		DA583C752340DE6100BA76DC /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA583C742340DE6100BA76DC /* PlayerState.swift */; };
 		DA633562233C6FB900A3BF53 /* HomeViewStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA633561233C6FB900A3BF53 /* HomeViewStack.swift */; };
@@ -58,7 +59,6 @@
 		DA7A6559233CFE0100FCB0E7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A6558233CFE0100FCB0E7 /* AppState.swift */; };
 		DA7A655B233D065F00FCB0E7 /* PlayerControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A655A233D065F00FCB0E7 /* PlayerControls.swift */; };
 		DA84A9BD2341037D0009D2B4 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84A9BC2341037D0009D2B4 /* SigninView.swift */; };
-		DA84A9C123410CB80009D2B4 /* LoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84A9C023410CB80009D2B4 /* LoginHelper.swift */; };
 		DA84A9C3234116EA0009D2B4 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84A9C2234116EA0009D2B4 /* AppRootView.swift */; };
 		DA84A9C523418F2E0009D2B4 /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84A9C423418F2E0009D2B4 /* SearchItem.swift */; };
 		DA84A9C72341905A0009D2B4 /* CollectionListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84A9C62341905A0009D2B4 /* CollectionListItem.swift */; };
@@ -66,7 +66,6 @@
 		DA8BAAAF239DFC5700C81DF7 /* NavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8BAAAE239DFC5700C81DF7 /* NavView.swift */; };
 		DA8BAAB3239E0EC300C81DF7 /* BottomPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8BAAB2239E0EC300C81DF7 /* BottomPadding.swift */; };
 		DA8D4C2B233E4BEE003B969C /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D4C2A233E4BEE003B969C /* BlurView.swift */; };
-		DAA72C2E24052F9C00091F88 /* LatestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA72C2D24052F9C00091F88 /* LatestList.swift */; };
 		DAA72C322405427200091F88 /* SongRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA72C312405427200091F88 /* SongRow.swift */; };
 		DAA72C382405737000091F88 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA72C372405737000091F88 /* StringExtension.swift */; };
 		DAAD994D23449F2600DD7A85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD994C23449F2600DD7A85 /* Utils.swift */; };
@@ -118,6 +117,7 @@
 		DA41B021233DB33E00001554 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		DA41B022233DB33E00001554 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		DA436687240A080E00D5FE9F /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		DA4C8CBA240B771F00533C88 /* LoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
 		DA4FA0AB2406C6B800515C50 /* Biu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Biu.plist; sourceTree = "<group>"; };
 		DA583C742340DE6100BA76DC /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		DA633561233C6FB900A3BF53 /* HomeViewStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewStack.swift; sourceTree = "<group>"; };
@@ -139,7 +139,6 @@
 		DA7A6558233CFE0100FCB0E7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		DA7A655A233D065F00FCB0E7 /* PlayerControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControls.swift; sourceTree = "<group>"; };
 		DA84A9BC2341037D0009D2B4 /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
-		DA84A9C023410CB80009D2B4 /* LoginHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginHelper.swift; sourceTree = "<group>"; };
 		DA84A9C2234116EA0009D2B4 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		DA84A9C423418F2E0009D2B4 /* SearchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		DA84A9C62341905A0009D2B4 /* CollectionListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListItem.swift; sourceTree = "<group>"; };
@@ -147,7 +146,6 @@
 		DA8BAAAE239DFC5700C81DF7 /* NavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavView.swift; sourceTree = "<group>"; };
 		DA8BAAB2239E0EC300C81DF7 /* BottomPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPadding.swift; sourceTree = "<group>"; };
 		DA8D4C2A233E4BEE003B969C /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		DAA72C2D24052F9C00091F88 /* LatestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestList.swift; sourceTree = "<group>"; };
 		DAA72C312405427200091F88 /* SongRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRow.swift; sourceTree = "<group>"; };
 		DAA72C372405737000091F88 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		DAAD994C23449F2600DD7A85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -242,7 +240,7 @@
 				DA77EEC123463B250060F78F /* LyricParser.swift */,
 				DA0DE0CF2340830D00ED383E /* Router.swift */,
 				DA6A0295233B838200F1EC34 /* InitatHome.swift */,
-				DA84A9C023410CB80009D2B4 /* LoginHelper.swift */,
+				DA4C8CBA240B771F00533C88 /* LoginHelper.swift */,
 				DA28455F233B52E30090A3E6 /* PairUtils.swift */,
 				DAAD994C23449F2600DD7A85 /* Utils.swift */,
 				DA7A6552233CCD2E00FCB0E7 /* SearchWorker.swift */,
@@ -330,7 +328,6 @@
 				DA633573233CB12800A3BF53 /* SearchView.swift */,
 				DA29502123419A450097E5C9 /* SearchBar.swift */,
 				DA84A9C423418F2E0009D2B4 /* SearchItem.swift */,
-				DAA72C2D24052F9C00091F88 /* LatestList.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -481,7 +478,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n\n/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n\n/usr/local/bin/carthage copy-frameworks\n\n# ${PROJECT_DIR}/Carthage/External/Fabric.framework/run\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -535,7 +532,6 @@
 				DA154C482344862200290FF2 /* UserInterface.swift in Sources */,
 				DA29502A234207E90097E5C9 /* RequestHandler.swift in Sources */,
 				DA7A655B233D065F00FCB0E7 /* PlayerControls.swift in Sources */,
-				DA84A9C123410CB80009D2B4 /* LoginHelper.swift in Sources */,
 				DA05D47E233B09C90049F65D /* Constants.swift in Sources */,
 				DA8BAAAD239D56CD00C81DF7 /* HomeListView.swift in Sources */,
 				DA84A9C523418F2E0009D2B4 /* SearchItem.swift in Sources */,
@@ -543,7 +539,7 @@
 				DA8D4C2B233E4BEE003B969C /* BlurView.swift in Sources */,
 				DA77EEC823463D610060F78F /* CharacterSet.swift in Sources */,
 				DA633568233C9BC500A3BF53 /* HomeSubView.swift in Sources */,
-				DAA72C2E24052F9C00091F88 /* LatestList.swift in Sources */,
+				DA4C8CBB240B771F00533C88 /* LoginHelper.swift in Sources */,
 				DA77EECA2346FE520060F78F /* TabBarController.swift in Sources */,
 				DA0DE0D02340830D00ED383E /* Router.swift in Sources */,
 				DA77EECE23471A6B0060F78F /* UpdateButtonView.swift in Sources */,
@@ -603,7 +599,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -693,12 +689,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 561;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Source/Preview Content\"";
 				DEVELOPMENT_TEAM = 976LPVAR4Y;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/External",
 				);
 				INFOPLIST_FILE = Source/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -721,12 +719,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 561;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Source/Preview Content\"";
 				DEVELOPMENT_TEAM = 976LPVAR4Y;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/External",
 				);
 				INFOPLIST_FILE = Source/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

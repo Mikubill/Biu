@@ -54,7 +54,7 @@ struct CollectionListView: View {
         }
         .navigationBarTitle(Text(Variable.myPlaylistKey[self.collectionIndex].prefix(40)), displayMode: .inline)
         .onAppear {
-            self.details.defaultPlaylist = [Song]()
+//            self.details.defaultPlaylist = [Song]()
             self.details.getdetails(self.title[self.collectionIndex], true)
         }
     }

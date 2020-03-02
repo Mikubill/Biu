@@ -42,7 +42,10 @@ struct SearchView: View {
                         .padding(Edge.Set.top, 20)
                     }
                     if !self.hideBarTitle {
-                        LatestList()
+                        VStack(alignment: .leading){
+                            HomeListView()
+                                .padding()
+                        }
                     }
                     if self.worker.songs.count > 0 {
                         ForEach(self.worker.songs.indices, id: \.self) { index in

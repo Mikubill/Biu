@@ -12,10 +12,10 @@ import Cache
 struct Variable {
     static var myPlaylistKey = [String]()
     static var myPlaylistTitle = [[String]]()
-    static var newMusicPlaylistKey = [String]()
-    static var newMusicPlaylistTitle = [String]()
-    static var hotMusicPlayListKey = [String]()
-    static var hotMusicPlaylistTitle = [String]()
+//    static var newMusicPlaylistKey = [String]()
+    static var newMusicPlaylist = [Song]()
+//    static var hotMusicPlayListKey = [String]()
+    static var hotMusicPlaylist = [Song]()
 
     static var timer: Timer?
     static var ntimer: Timer?

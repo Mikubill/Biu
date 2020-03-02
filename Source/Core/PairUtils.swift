@@ -14,6 +14,8 @@ func pairs(_ json: JSON) -> ([String], [Any]) {
     var data: JSON
     var titles = [String]()
     var id = [String]()
+    var singer = [String]()
+    var album = [String]()
     var ids = [[String]]()
     data = json["result"].exists() ? json["result"] : json
     for (_, subJson):(String, JSON) in data {
@@ -21,12 +23,22 @@ func pairs(_ json: JSON) -> ([String], [Any]) {
             switch key {
             case "title": titles.append(subJson.string ?? "nil")
             case "sid": id.append(subJson.string ?? "1")
+            case "singer" : singer.append(subJson.string ?? "unknown")
+            case "album" : album.append(subJson.string ?? "unknown")
             case "sids": ids.append(subJson.arrayValue.map { $0.string ?? "1" })
             default: break
             }
         }
     }
-    return ids == [] ? (titles, id):(titles, ids)
+    if ids == [] {
+        var songs = [Song]()
+        for (index, _) in id.enumerated() {
+            songs.append(Song(id: id[index], title: titles[index], singer: singer[index], album: album[index]))
+        }
+        return (titles, songs)
+    } else {
+        return (titles, ids)
+    }
 }
 
 func searchpairs(_ json: JSON) -> [Song] {
