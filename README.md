@@ -5,7 +5,7 @@
 
 <h1 align="center">Biu</h1>
 
-<p align="center">Just a Music App written in SwiftUI</p>
+<p align="center">Just a Music App written with SwiftUI</p>
 
 ## Build 
 
