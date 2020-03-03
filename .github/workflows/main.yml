@@ -8,6 +8,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
+    - name: Cache dependencies
+      uses: actions/cache@master
+      with:
+        path: Carthage
+        key: ${{ runner.os }}-build-${{ hashFiles('Cartfile.resolved') }}
     - name: Update Dependencies
       run: carthage update --cache-builds --platform iOS 
     - name: Build the App
