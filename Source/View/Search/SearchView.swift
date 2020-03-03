@@ -63,10 +63,12 @@ struct SearchView: View {
                 }
                 .navigationBarTitle(Text("Search"))
                 .resignKeyboardOnDragGesture()
+                .animation(.none)
 
                 BottomPadding()
             }
             .navigationBarHidden(self.hideBarTitle)
+            .animation(.easeInOut)
             .overlay(
                 BlurView(style: self.colorScheme == .light ? .light : .dark)
                     .frame(width: 450, height: 70), alignment: .bottom)
