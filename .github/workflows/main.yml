@@ -17,5 +17,6 @@ jobs:
       run: carthage update --cache-builds --platform iOS 
     - name: Build the App
       run: |
+        cp Source/info.plist Source/Biu.plist
         xcodebuild clean build CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO
         
