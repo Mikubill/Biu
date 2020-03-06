@@ -20,7 +20,7 @@ struct Logout: View {
                 self.showingSheet = true
             }) {
                 Text("Logout")
-                    .frame(width: 200, alignment: .center)
+                    .frame(alignment: .center)
             }
             .actionSheet(isPresented: $showingSheet) {
                 ActionSheet(title: Text("确定要登出吗？"), message: Text("这将会删除所有个人数据（包括缓存数据）"), buttons: [

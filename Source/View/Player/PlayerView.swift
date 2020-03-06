@@ -21,8 +21,8 @@ struct PlayerView: View {
                     Text(self.state.nowPlaying?.title ?? "Nothing")
                         .lineLimit(1)
                         .font(.title)
-                        .padding(Edge.Set.top, 40)
-                        .padding(Edge.Set.bottom, 20)
+                        .padding(Edge.Set.top)
+                        .padding(Edge.Set.bottom)
                     Text(self.state.nowPlaying?.singer ?? "Nothing")
                         .lineLimit(1)
                         .foregroundColor(.gray)
@@ -30,8 +30,8 @@ struct PlayerView: View {
                 } else {
                     Text("正在加载FM: \(FMViewItem.FMContents[self.state.fmmode])")
                         .font(.title)
-                        .padding(Edge.Set.top, 40)
-                        .padding(Edge.Set.bottom, 20)
+                        .padding(Edge.Set.top)
+                        .padding(Edge.Set.bottom)
                     Text("...")
                         .font(.headline)
                 }

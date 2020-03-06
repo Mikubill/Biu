@@ -36,13 +36,13 @@ struct UserInterface: View {
             .disabled(false)
             HStack {
                 Text("立即shuffle歌单")
-                    .frame(width: 270, alignment: .leading)
+                    .frame(alignment: .leading)
                 Button(action: {
                     //                                self.shuffle = true
                     self.state.shuffle()
                 }) {
                     Text("更新")
-                        .frame(width: 50, alignment: .trailing)
+                        .frame(alignment: .trailing)
                 }
                 //                            .disabled(self.shuffle)
             }

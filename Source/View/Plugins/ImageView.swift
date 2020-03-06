@@ -17,6 +17,8 @@ struct ImageView: View {
     var imageURL: String = "https://web.biu.moe/Public/Lcover/0/4860.jpeg"
     var width: CGFloat = 150
     var height: CGFloat = 150
+    var maxWidth: CGFloat? = nil
+    var maxHeight: CGFloat? = nil
     var alignment: Alignment = .center
     
     @State var done = false
@@ -55,10 +57,10 @@ struct ImageView: View {
         .resizable()
         .aspectRatio(contentMode: .fit)
         .scaledToFit()
-        .frame(width: width, height: height, alignment: .center)
+        .frame(idealWidth: width, maxWidth: maxWidth, idealHeight: height, maxHeight: maxHeight, alignment: .center)
         .opacity(done || alreadyCached ? 1.0 : 0.3)
         .animation(.linear(duration: 0.4))
-        .cornerRadius(10)
+        .cornerRadius(5)
         .shadow(radius: 5)
 //        .renderingMode(.original)
     }

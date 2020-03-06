@@ -27,18 +27,20 @@ struct PlayerControls: View {
                     self.state.userModified($0, dest: self.duration)
                     self.startTimer()
                 })
-                    .frame(width: 350.0, height: 40)
+                    .frame(idealWidth: 350.0, idealHeight: 40)
                     .disabled(self.state.isLoading)
+                
 
                 HStack {
                     Text("\(self.timestamp.0.0):\(self.timestamp.0.1)")
                     Spacer()
                     Text("\(self.timestamp.1.0):\(self.timestamp.1.1)")
                 }
-                .frame(width: 350)
+                .frame(idealWidth: 350, alignment: .center)
             }
+            .padding(25) //?
             Spacer()
-            HStack(spacing: 40) {
+            HStack(spacing: 25) {
 
                 // MARK: buttons
                 if !self.state.isLikeing {

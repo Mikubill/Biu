@@ -13,25 +13,42 @@ struct LoginView: View {
     @State var showbutton = true
     @State var showreg = false
     @EnvironmentObject var loginhelper: LoginHelper
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     var strengths = ["汉子", "妹子", "秀吉"]
     @State private var selectedStrength = 0
-
+    
     var body: some View {
         VStack {
-            Image(uiImage: UIImage(named: "biu_trans")!)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 150, height: 150, alignment: .center)
-                .clipShape(Circle())
-                .overlay(
-                    Circle().stroke(Color.white, lineWidth: 4))
-                .shadow(radius: 5)
-                .padding(Edge.Set.top, 40)
-                .padding(Edge.Set.bottom, 25)
-                .padding(10)
-
+            if !self.showreg {
+                if self.colorScheme == .light {
+                    Image(uiImage: UIImage(named: "trans-black")!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 150, height: 150, alignment: .center)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 5)
+                    .padding(Edge.Set.top, 40)
+                    .padding(Edge.Set.bottom, 25)
+                    .padding(10)
+                } else {
+                    Image(uiImage: UIImage(named: "trans-white")!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 150, height: 150, alignment: .center)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle().stroke(Color.white, lineWidth: 4))
+                    .shadow(radius: 5)
+                    .padding(Edge.Set.top, 40)
+                    .padding(Edge.Set.bottom, 25)
+                    .padding(10)
+                }
+            }
             VStack {
-
+                
                 TextField("Email", text: $loginhelper.username)
                     .textContentType(.emailAddress)
                     .padding()
@@ -40,43 +57,43 @@ struct LoginView: View {
                             .frame(height: 1.5, alignment: .bottom)
                             .foregroundColor(Color.gray), alignment: .bottom)
                     .padding(10)
-
+                
                 if self.showreg {
-                        SecureField("Password", text: $loginhelper.password)
-                            .padding()
-                            .overlay(
-                                Rectangle()
-                                    .frame(height: 1.5, alignment: .bottom)
-                                    .foregroundColor(Color.gray), alignment: .bottom)
-                            .padding(10)
-
-                        SecureField("Repeat Password", text: $loginhelper.password2)
-                            .padding()
-                            .overlay(
-                                Rectangle()
-                                    .frame(height: 1.5, alignment: .bottom)
-                                    .foregroundColor(Color.gray), alignment: .bottom)
-                            .padding(10)
-
-                        TextField("Name", text: $loginhelper.name)
-                            .padding()
-                            .overlay(
-                                Rectangle()
-                                    .frame(height: 1.5, alignment: .bottom)
-                                    .foregroundColor(Color.gray), alignment: .bottom)
-                            .padding(10)
-                    .padding(Edge.Set.bottom, 20)
+                    SecureField("Password", text: $loginhelper.password)
+                        .padding()
+                        .overlay(
+                            Rectangle()
+                                .frame(height: 1.5, alignment: .bottom)
+                                .foregroundColor(Color.gray), alignment: .bottom)
+                        .padding(10)
+                    
+                    SecureField("Repeat Password", text: $loginhelper.password2)
+                        .padding()
+                        .overlay(
+                            Rectangle()
+                                .frame(height: 1.5, alignment: .bottom)
+                                .foregroundColor(Color.gray), alignment: .bottom)
+                        .padding(10)
+                    
+                    TextField("Name", text: $loginhelper.name)
+                        .padding()
+                        .overlay(
+                            Rectangle()
+                                .frame(height: 1.5, alignment: .bottom)
+                                .foregroundColor(Color.gray), alignment: .bottom)
+                        .padding(10)
+                        .padding(Edge.Set.bottom, 20)
                 } else {
-                        SecureField("Password", text: $loginhelper.password, onCommit: commit)
-                            .padding()
-                            .overlay(
-                                Rectangle()
-                                    .frame(height: 1.0, alignment: .bottom)
-                                    .foregroundColor(Color.gray), alignment: .bottom)
-                            .padding(10)
-                            .padding(Edge.Set.bottom, 40)
+                    SecureField("Password", text: $loginhelper.password, onCommit: commit)
+                        .padding()
+                        .overlay(
+                            Rectangle()
+                                .frame(height: 1.0, alignment: .bottom)
+                                .foregroundColor(Color.gray), alignment: .bottom)
+                        .padding(10)
+                        .padding(Edge.Set.bottom, 30)
                 }
-
+                
                 Button(action: {
                     self.commit()
                 }) {
@@ -85,33 +102,34 @@ struct LoginView: View {
                             .frame(width: 55, height: 55)
                     } else {
                         Image(systemName: "arrow.right.circle")
-                            .renderingMode(.original)
+//                            .renderingMode(.original)
                             .resizable()
                             .font(Font.title.weight(.ultraLight))
+                            .foregroundColor(self.colorScheme == .light ? .black : .white)
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 55, height: 55)
+                            .frame(width: 45, height: 45)
                     }
                 }
                 .disabled(self.loginhelper.signing)
-
+                
                 Spacer()
                     .frame(width: 15, alignment: .center)
-
+                
                 Button(action: {
-
+                    
                     withAnimation(.easeInOut(duration: 0.5)) { self.showreg.toggle() } }) {
-                    if self.showreg {
-                        Text("Return to Login")
-                    } else {
-                        Text("Sign up, If you're new!")
-                    }
+                        if self.showreg {
+                            Text("Return to Login")
+                        } else {
+                            Text("Sign up")
+                        }
                 }
                 .disabled(self.loginhelper.signing)
-
+                
                 Text(self.loginhelper.answer)
                     .font(.headline)
-                    .padding(25)
-
+                    .padding()
+                
             }
         }
         .onDisappear(){
@@ -130,7 +148,7 @@ struct LoginView: View {
         //        }
     }
     
-
+    
     func commit() {
         UIApplication.shared.endEditing()
         self.loginhelper.answer = "正在请求数据..."
