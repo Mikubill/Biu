@@ -21,8 +21,7 @@ struct LoginView: View {
     var body: some View {
         VStack {
             if !self.showreg {
-                if self.colorScheme == .light {
-                    Image(uiImage: UIImage(named: "trans-black")!)
+                Image(uiImage: UIImage(named: self.colorScheme == .light ? "trans-black" : "trans-white")!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 150, height: 150, alignment: .center)
@@ -33,19 +32,6 @@ struct LoginView: View {
                     .padding(Edge.Set.top, 40)
                     .padding(Edge.Set.bottom, 25)
                     .padding(10)
-                } else {
-                    Image(uiImage: UIImage(named: "trans-white")!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 150, height: 150, alignment: .center)
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle().stroke(Color.white, lineWidth: 4))
-                    .shadow(radius: 5)
-                    .padding(Edge.Set.top, 40)
-                    .padding(Edge.Set.bottom, 25)
-                    .padding(10)
-                }
             }
             VStack {
                 
@@ -102,7 +88,7 @@ struct LoginView: View {
                             .frame(width: 55, height: 55)
                     } else {
                         Image(systemName: "arrow.right.circle")
-//                            .renderingMode(.original)
+                            //                            .renderingMode(.original)
                             .resizable()
                             .font(Font.title.weight(.ultraLight))
                             .foregroundColor(self.colorScheme == .light ? .black : .white)
