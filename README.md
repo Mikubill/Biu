@@ -9,9 +9,11 @@
 
 ## Demo
 
-[TestFlight](https://testflight.apple.com/join/6rzLbQiU)
+~~[TestFlight](https://testflight.apple.com/join/6rzLbQiU)~~
 
-Testflight中的APP包含完整功能（包括注册、登陆、播放、收藏等）。如对构建本(laji)App有兴趣，也可以通过Testflight中的开发者邮箱联系我获得 `Biu.plist`。
+~~Testflight中的APP包含完整功能（包括注册、登陆、播放、收藏等）。如对构建本(laji)App有兴趣，也可以通过Testflight中的开发者邮箱联系我获得 `Biu.plist`。~~
+
+API故障，App暂时无法使用QwQ
 
 ## Build 
 
@@ -21,17 +23,9 @@ Testflight中的APP包含完整功能（包括注册、登陆、播放、收藏�
 
 Biu使用了Biu.Moe的API来实现各种音乐功能。由于Biu.Moe的限制，本Repo中并未包含API凭据文件`Biu.plist`，因此编译下来以后有可能无法正常使用。可以直接联系@Mikubill或者通过Testflight中的开发者邮箱获得这个文件。（主要是为了防止滥用）
 
-<details><summary>English</summary>
-Biu uses the Biu.Moe Music API to play music and manage playlists. Due to the limitation of Biu.Moe, this repo does not include the API credential file `Biu.plist`. You may need to contact @XinNya or @Mikubill to get `Biu.plist` to build the application on your own.
-</details>
-
 ### Dependencies
 
 Biu使用`carthage`来管理依赖，安装`carthage`后只需要简单运行以下命令即可更新所有依赖包。
-
-<details><summary>English</summary>
-Biu uses carthage to manage dependencies. You can update dependencies by:
-</details>
 
 ```
 carthage update --cache-builds --platform iOS 
